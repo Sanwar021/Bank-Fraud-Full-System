@@ -1,0 +1,54 @@
+{
+  "model_version": "v1.0.0",
+  "trained_at": "2026-11-15 03:21:15Z",
+  "dataset_size": 50000,
+  "test_size": 15000,
+  "features": [
+    "amount",
+    "transaction_hour",
+    "day_of_week",
+    "is_weekend",
+    "avg_transaction_amount",
+    "tx_amount_deviation",
+    "historical_tx_frequency",
+    "is_new_beneficiary",
+    "is_new_device",
+    "is_new_ip",
+    "geo_distance_km",
+    "tx_count_1m",
+    "tx_count_1h",
+    "tx_count_24h",
+    "tx_sum_1h",
+    "tx_sum_24h",
+    "balance_drain_ratio",
+    "failed_login_count"
+  ],
+  "metrics": {
+    "xgboost": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "confusion_matrix": [
+        [
+          14700,
+          0
+        ],
+        [
+          0,
+          300
+        ]
+      ]
+    },
+    "isolation_forest": {
+      "contamination": 0.03,
+      "n_estimators": 100
+    },
+    "autoencoder": {
+      "normal_mse_mean": 0.0365,
+      "normal_mse_std": 0.078
+    }
+  },
+  "elapsed_seconds": 19.52
+}

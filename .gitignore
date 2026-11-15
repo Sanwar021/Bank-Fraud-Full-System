@@ -1,0 +1,26 @@
+# Binaries and builds
+backend/bin/
+backend/*.exe
+frontend/dist/
+frontend/node_modules/
+ml-service/__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+venv/
+
+# Environment and secrets
+.env
+*.pem
+*.key
+
+# Database and cache runtime
+postgres-data/
+redis-data/
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
