@@ -86,3 +86,4 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onSelect, isS
     </div>
   );
 };
+

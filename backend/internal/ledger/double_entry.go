@@ -246,3 +246,4 @@ func (e *LedgerEngine) PostApprovedTransaction(ctx context.Context, txID uuid.UU
 
 	return completedTx, nil
 }
+

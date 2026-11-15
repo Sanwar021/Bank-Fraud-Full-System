@@ -72,3 +72,4 @@ export const SHAPBarChart: React.FC<SHAPBarChartProps> = ({ featuresJson }) => {
     </div>
   );
 };
+

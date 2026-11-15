@@ -73,3 +73,4 @@ class FraudInferenceEngine:
             model_version=self.version,
             processing_time_ms=max(elapsed_ms, 1),
         )
+

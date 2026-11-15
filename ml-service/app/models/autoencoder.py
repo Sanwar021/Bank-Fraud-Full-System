@@ -132,3 +132,4 @@ class BehavioralAutoencoder:
         self.normal_mse_mean = checkpoint.get("normal_mse_mean", 0.25)
         self.normal_mse_std = checkpoint.get("normal_mse_std", 0.15)
         self.net.eval()
+

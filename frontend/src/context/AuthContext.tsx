@@ -43,8 +43,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const data = await authApi.login(email, pass);
-      localStorage.setItem('access_token', data.token_pair.access_token);
-      localStorage.setItem('refresh_token', data.token_pair.refresh_token);
+      const access = data.tokens?.access_token || data.token_pair?.access_token;
+      const refresh = data.tokens?.refresh_token || data.token_pair?.refresh_token;
+      if (access) localStorage.setItem('access_token', access);
+      if (refresh) localStorage.setItem('refresh_token', refresh);
       setUser(data.user);
       return data.user;
     } finally {
@@ -105,3 +107,4 @@ export const useAuth = () => {
   }
   return context;
 };
+

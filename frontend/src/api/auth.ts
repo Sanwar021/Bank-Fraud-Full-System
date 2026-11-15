@@ -42,14 +42,14 @@ export interface RegisterRequest {
 }
 
 export const authApi = {
-  login: async (email: string, password: string): Promise<LoginResponse> => {
+  login: async (email: string, password: string): Promise<any> => {
     const res = await api.post('/auth/login', { email, password });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   register: async (data: RegisterRequest) => {
     const res = await api.post('/auth/register', data);
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   logout: async () => {
@@ -63,21 +63,22 @@ export const authApi = {
 
   getMe: async (): Promise<User> => {
     const res = await api.get('/auth/me');
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   getSessions: async () => {
     const res = await api.get('/auth/sessions');
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   requestOTP: async (action: string) => {
     const res = await api.post('/auth/otp/request', { action_type: action });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   verifyOTP: async (action: string, code: string) => {
     const res = await api.post('/auth/otp/verify', { action_type: action, code });
-    return res.data;
+    return res.data?.data || res.data;
   },
 };
+

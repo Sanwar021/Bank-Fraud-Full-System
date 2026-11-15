@@ -500,3 +500,4 @@ export const TransferWizard: React.FC = () => {
     </div>
   );
 };
+

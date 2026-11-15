@@ -154,3 +154,4 @@ func (h *LoanHandler) Apply(c *gin.Context) {
 		"data":    loan,
 	})
 }
+

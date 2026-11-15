@@ -190,3 +190,4 @@ func (h *AccountHandler) ExportStatement(c *gin.Context) {
 	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
 	c.Data(http.StatusOK, "text/csv; charset=utf-8", csvData)
 }
+

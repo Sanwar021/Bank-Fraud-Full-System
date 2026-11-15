@@ -64,3 +64,4 @@ class ModelsResponse(BaseModel):
     models: List[ModelDetails]
     ensemble_formula: str
     thresholds: Dict[str, Any]
+

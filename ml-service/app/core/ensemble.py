@@ -51,3 +51,4 @@ class EnsembleArbiter:
                 "autoencoder": self.weight_autoencoder,
             },
         }
+

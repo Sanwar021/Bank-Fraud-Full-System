@@ -134,3 +134,4 @@ export const LiveTransactionFeed: React.FC = () => {
     </div>
   );
 };
+

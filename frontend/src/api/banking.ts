@@ -134,22 +134,22 @@ export const bankingApi = {
   // Accounts
   getAccounts: async (): Promise<Account[]> => {
     const res = await api.get('/accounts');
-    return res.data;
+    return res.data?.data?.accounts || res.data?.data || res.data || [];
   },
 
   getAccount: async (id: string): Promise<Account> => {
     const res = await api.get(`/accounts/${id}`);
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   createAccount: async (account_type: string, currency: string = 'USD') => {
     const res = await api.post('/accounts', { account_type, currency });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   getAccountTransactions: async (id: string, limit: number = 20, offset: number = 0) => {
     const res = await api.get(`/accounts/${id}/transactions?limit=${limit}&offset=${offset}`);
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   exportStatement: async (id: string, format: string = 'csv') => {
@@ -166,17 +166,17 @@ export const bankingApi = {
       headers['X-Idempotency-Key'] = idempotencyKey;
     }
     const res = await api.post('/transfers', data, { headers });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   getTransfers: async (): Promise<Transaction[]> => {
     const res = await api.get('/transfers');
-    return res.data;
+    return res.data?.data || res.data || [];
   },
 
   getTransfer: async (id: string): Promise<Transaction> => {
     const res = await api.get(`/transfers/${id}`);
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   verifyTransferOTP: async (txId: string, code: string): Promise<Transaction> => {
@@ -192,39 +192,39 @@ export const bankingApi = {
   // Beneficiaries
   getBeneficiaries: async (): Promise<Beneficiary[]> => {
     const res = await api.get('/beneficiaries');
-    return res.data;
+    return res.data?.data || res.data || [];
   },
 
   createBeneficiary: async (data: { name: string; account_number: string; bank_name: string; routing_number?: string }) => {
     const res = await api.post('/beneficiaries', data);
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   deleteBeneficiary: async (id: string) => {
     const res = await api.delete(`/beneficiaries/${id}`);
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   // Cards
   getCards: async (): Promise<Card[]> => {
     const res = await api.get('/cards');
-    return res.data;
+    return res.data?.data || res.data || [];
   },
 
   updateCardStatus: async (id: string, status: 'ACTIVE' | 'FROZEN') => {
     const res = await api.patch(`/cards/${id}/status`, { status });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   updateCardLimit: async (id: string, limit: number) => {
     const res = await api.patch(`/cards/${id}/limit`, { spending_limit: limit });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   // Loans
   getLoans: async (): Promise<Loan[]> => {
     const res = await api.get('/loans');
-    return res.data;
+    return res.data?.data || res.data || [];
   },
 
   calculateEMI: async (principal: number, interestRate: number, termMonths: number) => {
@@ -233,7 +233,7 @@ export const bankingApi = {
       interest_rate: interestRate,
       term_months: termMonths,
     });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   applyLoan: async (principal: number, interestRate: number, termMonths: number) => {
@@ -242,13 +242,13 @@ export const bankingApi = {
       interest_rate: interestRate,
       term_months: termMonths,
     });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   // Deposits
   getDeposits: async (): Promise<FixedDeposit[]> => {
     const res = await api.get('/deposits');
-    return res.data;
+    return res.data?.data || res.data || [];
   },
 
   createDeposit: async (sourceAccountId: string, principal: number, termMonths: number, interestRate: number) => {
@@ -258,7 +258,7 @@ export const bankingApi = {
       term_months: termMonths,
       interest_rate: interestRate,
     });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   // Notifications

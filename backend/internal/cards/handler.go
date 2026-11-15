@@ -124,3 +124,4 @@ func (h *CardHandler) UpdateLimit(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Spending limit updated", "data": card})
 }
+

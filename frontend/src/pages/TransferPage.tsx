@@ -54,3 +54,4 @@ export const TransferPage: React.FC = () => {
     </div>
   );
 };
+

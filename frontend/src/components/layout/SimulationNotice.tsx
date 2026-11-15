@@ -17,3 +17,4 @@ export const SimulationNotice: React.FC = () => {
     </div>
   );
 };
+

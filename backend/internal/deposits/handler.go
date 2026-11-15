@@ -166,3 +166,4 @@ func (h *DepositHandler) Create(c *gin.Context) {
 		"data":    fdr,
 	})
 }
+

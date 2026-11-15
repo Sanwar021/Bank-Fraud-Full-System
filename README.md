@@ -249,3 +249,4 @@ The database contains 23 normalized tables enforcing relational integrity:
 ## 11. Ethical & Compliance Notice
 
 This system does not connect to real financial networks (Fedwire, ACH, SWIFT, Visa, Mastercard). All money movements are simulated via internal double-entry accounting records. The project demonstrates financial software engineering, ML explainability, and cybersecurity defense architecture.
+

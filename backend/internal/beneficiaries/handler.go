@@ -101,3 +101,4 @@ func (h *BeneficiaryHandler) Delete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Beneficiary deleted"})
 }
+

@@ -56,3 +56,4 @@ type FraudScoreResponse struct {
 	ModelVersion       string            `json:"model_version"`
 	ProcessingTimeMs   int               `json:"processing_time_ms"`
 }
+

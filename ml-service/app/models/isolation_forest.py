@@ -78,3 +78,4 @@ class IsolationForestAnomalyDetector:
         self.feature_names = payload["feature_names"]
         self.feature_means = payload.get("feature_means")
         self.feature_stds = payload.get("feature_stds")
+

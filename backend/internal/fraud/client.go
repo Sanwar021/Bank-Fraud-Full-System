@@ -64,3 +64,4 @@ func (c *FraudClient) ScoreTransaction(ctx context.Context, req FraudScoreReques
 
 	return &scoreResp, nil
 }
+

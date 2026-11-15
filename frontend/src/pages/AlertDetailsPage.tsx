@@ -193,3 +193,4 @@ export const AlertDetailsPage: React.FC = () => {
     </div>
   );
 };
+

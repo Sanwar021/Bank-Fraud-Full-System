@@ -63,3 +63,4 @@ class FeaturePipeline:
     def load(cls, filepath: str):
         pipeline = cls(scaler_path=filepath)
         return pipeline
+
