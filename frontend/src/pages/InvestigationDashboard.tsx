@@ -52,23 +52,23 @@ export const InvestigationDashboard: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-            <span className="text-xs font-mono font-bold tracking-wider text-indigo-500 uppercase">
-              Financial Crimes Intelligence Center
+            <span className="text-xs font-mono font-bold tracking-wider text-zen-600 dark:text-cyan-400 uppercase">
+              Bank Asia ZEN AI Defense & Investigation Center
             </span>
           </div>
-          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">
-            Fraud Operations & Real-Time Triage
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+            Fraud Operations & Real-Time Alert Triage
           </h1>
         </div>
 
         <div className="flex items-center gap-2">
           <Link to="/investigation/audit">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="font-bold">
               Audit Trail
             </Button>
           </Link>
           <Link to="/transfer">
-            <Button size="sm">
+            <Button size="sm" className="shadow-zen font-bold">
               Simulate Attack
             </Button>
           </Link>

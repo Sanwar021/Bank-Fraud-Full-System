@@ -1,7 +1,7 @@
 import React from 'react';
 import { Transaction } from '../../api/banking';
 import { Badge } from '../common/Badge';
-import { ArrowUpRight, ArrowDownLeft, ShieldAlert, Clock } from 'lucide-react';
+import { ArrowUpRight, ArrowDownLeft, ShieldAlert, Clock, Building2, Zap, Smartphone } from 'lucide-react';
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -39,31 +39,42 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
     } else if (decision.includes('MEDIUM') || num >= 30) {
       return <Badge variant="warning" size="sm">Risk: {num.toFixed(1)}</Badge>;
     } else {
-      return <Badge variant="success" size="sm">Risk: {num.toFixed(1)}</Badge>;
+      return <Badge variant="zen" size="sm">Risk: {num.toFixed(1)}</Badge>;
+    }
+  };
+
+  const getRailIcon = (type: string) => {
+    switch (type) {
+      case 'INTERBANK':
+        return <Zap className="w-3.5 h-3.5 text-amber-500 mr-1" />;
+      case 'BILL_PAY':
+        return <Smartphone className="w-3.5 h-3.5 text-emerald-500 mr-1" />;
+      default:
+        return <Building2 className="w-3.5 h-3.5 text-zen-500 mr-1" />;
     }
   };
 
   if (!transactions || transactions.length === 0) {
     return (
-      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-400 text-sm">
-        No transactions found.
+      <div className="p-8 text-center bg-white dark:bg-[#090B28] rounded-2xl border border-slate-200/80 dark:border-slate-800 text-slate-400 text-xs">
+        No recent transaction records in ledger.
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+    <div className="overflow-x-auto bg-white dark:bg-[#090B28] rounded-2xl border border-slate-200/80 dark:border-slate-800">
       <table className="w-full text-left border-collapse text-xs">
         <thead>
-          <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px] font-mono tracking-wider bg-slate-50/50 dark:bg-slate-800/30">
-            <th className="py-3 px-4">Reference & Description</th>
-            <th className="py-3 px-4">Transfer Type</th>
-            <th className="py-3 px-4">Status & Risk</th>
-            <th className="py-3 px-4">Date</th>
-            <th className="py-3 px-4 text-right">Amount</th>
+          <tr className="border-b border-slate-200/80 dark:border-slate-800 text-slate-400 uppercase text-[10px] font-mono tracking-wider bg-slate-50/60 dark:bg-slate-800/40">
+            <th className="py-3 px-4 font-bold">Reference & Description</th>
+            <th className="py-3 px-4 font-bold">Payment Rail</th>
+            <th className="py-3 px-4 font-bold">Status & AI Risk</th>
+            <th className="py-3 px-4 font-bold">Timestamp</th>
+            <th className="py-3 px-4 text-right font-bold">Amount</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-sans">
+        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
           {transactions.map((tx) => {
             const isDebit = currentAccountId ? tx.source_account_id === currentAccountId : true;
             const amt = parseFloat(tx.amount);
@@ -72,14 +83,14 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
               <tr
                 key={tx.id}
                 onClick={() => onSelectTransaction && onSelectTransaction(tx)}
-                className={`hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors ${
+                className={`hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors ${
                   onSelectTransaction ? 'cursor-pointer' : ''
                 }`}
               >
                 <td className="py-3.5 px-4">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
                         isDebit
                           ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400'
                           : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400'
@@ -88,25 +99,28 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                       {isDebit ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownLeft className="w-4 h-4" />}
                     </div>
                     <div>
-                      <div className="font-semibold text-slate-900 dark:text-slate-100 truncate max-w-xs">
+                      <div className="font-bold text-slate-900 dark:text-slate-100 truncate max-w-xs">
                         {tx.description || (isDebit ? 'Outgoing Transfer' : 'Incoming Transfer')}
                       </div>
-                      <div className="font-mono text-[11px] text-slate-400">
+                      <div className="font-mono text-[10px] text-slate-400">
                         {tx.reference}
                       </div>
                     </div>
                   </div>
                 </td>
-                <td className="py-3.5 px-4 font-mono text-[11px] text-slate-600 dark:text-slate-400">
-                  {tx.transfer_type}
+                <td className="py-3.5 px-4">
+                  <span className="inline-flex items-center text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300">
+                    {getRailIcon(tx.transfer_type)}
+                    {tx.transfer_type === 'INTERNAL' ? 'Bank Asia' : tx.transfer_type === 'INTERBANK' ? 'NPSB Instant' : 'Bill Pay'}
+                  </span>
                 </td>
                 <td className="py-3.5 px-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 flex-wrap">
                     {getStatusBadge(tx.status)}
                     {getRiskBadge(tx.risk_decision, tx.risk_score)}
                   </div>
                 </td>
-                <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 whitespace-nowrap text-[11px]">
+                <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 whitespace-nowrap text-[11px] font-mono">
                   {new Date(tx.created_at).toLocaleString([], {
                     month: 'short',
                     day: 'numeric',
@@ -116,8 +130,8 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                 </td>
                 <td className="py-3.5 px-4 text-right">
                   <div
-                    className={`font-mono font-bold text-sm ${
-                      isDebit ? 'text-slate-900 dark:text-slate-100' : 'text-emerald-600 dark:text-emerald-400'
+                    className={`font-mono font-black text-sm ${
+                      isDebit ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'
                     }`}
                   >
                     {isDebit ? '-' : '+'}${amt.toLocaleString('en-US', { minimumFractionDigits: 2 })}
@@ -136,4 +150,3 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
     </div>
   );
 };
-

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Banknote, Calculator, CheckCircle2, TrendingUp } from 'lucide-react';
+import { Banknote, Calculator, CheckCircle2, TrendingUp, Sparkles, ArrowRight } from 'lucide-react';
 import { bankingApi, Loan } from '../api/banking';
 import { Button } from '../components/common/Button';
 import { Badge } from '../components/common/Badge';
@@ -14,7 +14,7 @@ export const LoansPage: React.FC = () => {
   });
 
   const [principal, setPrincipal] = useState<number>(10000);
-  const [interestRate, setInterestRate] = useState<number>(7.5);
+  const [interestRate, setInterestRate] = useState<number>(9.5);
   const [termMonths, setTermMonths] = useState<number>(24);
   const [applicationSuccess, setApplicationSuccess] = useState(false);
 
@@ -41,31 +41,37 @@ export const LoansPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       <div>
-        <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-          <Banknote className="w-5 h-5 text-emerald-600" />
-          Consumer Loans & Interactive EMI Simulator
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
+            Bank Asia ZEN Credit
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+        </div>
+        <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 mt-0.5">
+          <Banknote className="w-6 h-6 text-zen-500" />
+          <span>ZEN Personal & SME Loan Simulator</span>
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Calculate monthly amortized payments and submit synthetic credit requests.
+          Calculate monthly amortized EMI payments and submit instant pre-qualified loan requests.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* EMI Calculator */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-5">
+        <div className="lg:col-span-2 bg-white dark:bg-[#090B28] p-6 sm:p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xs">
           <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
-            <Calculator className="w-4 h-4 text-emerald-600" />
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-              Loan Calculator & Amortization
+            <Calculator className="w-4 h-4 text-zen-500" />
+            <h3 className="text-sm font-black text-slate-900 dark:text-white">
+              Bank Asia Smart EMI Amortization Planner
             </h3>
           </div>
 
           <div className="space-y-4 text-xs">
             {/* Principal slider */}
             <div>
-              <div className="flex justify-between font-semibold mb-1">
-                <span>Principal Amount</span>
-                <span className="font-mono text-emerald-600 font-bold">${principal.toLocaleString()}</span>
+              <div className="flex justify-between font-bold mb-1">
+                <span className="text-slate-700 dark:text-slate-300">Loan Principal</span>
+                <span className="font-mono text-zen-600 dark:text-cyan-400 font-black text-sm">${principal.toLocaleString()}</span>
               </div>
               <input
                 type="range"
@@ -74,15 +80,15 @@ export const LoansPage: React.FC = () => {
                 step="500"
                 value={principal}
                 onChange={(e) => setPrincipal(parseFloat(e.target.value))}
-                className="w-full accent-emerald-600"
+                className="w-full accent-zen-500 h-2 bg-slate-200 dark:bg-slate-800 rounded-lg cursor-pointer"
               />
             </div>
 
             {/* Term Months slider */}
             <div>
-              <div className="flex justify-between font-semibold mb-1">
-                <span>Loan Term</span>
-                <span className="font-mono text-emerald-600 font-bold">{termMonths} Months ({termMonths / 12} yrs)</span>
+              <div className="flex justify-between font-bold mb-1">
+                <span className="text-slate-700 dark:text-slate-300">Repayment Tenure</span>
+                <span className="font-mono text-slate-900 dark:text-white font-bold">{termMonths} Months ({termMonths / 12} yrs)</span>
               </div>
               <input
                 type="range"
@@ -91,105 +97,80 @@ export const LoansPage: React.FC = () => {
                 step="6"
                 value={termMonths}
                 onChange={(e) => setTermMonths(parseInt(e.target.value))}
-                className="w-full accent-emerald-600"
+                className="w-full accent-zen-500 h-2 bg-slate-200 dark:bg-slate-800 rounded-lg cursor-pointer"
               />
             </div>
 
             {/* Interest Rate slider */}
             <div>
-              <div className="flex justify-between font-semibold mb-1">
-                <span>Annual Interest Rate</span>
-                <span className="font-mono text-emerald-600 font-bold">{interestRate.toFixed(1)}% APR</span>
+              <div className="flex justify-between font-bold mb-1">
+                <span className="text-slate-700 dark:text-slate-300">Annual Interest Rate</span>
+                <span className="font-mono text-slate-900 dark:text-white font-bold">{interestRate}%</span>
               </div>
               <input
                 type="range"
-                min="3.0"
-                max="18.0"
-                step="0.5"
+                min="5"
+                max="18"
+                step="0.25"
                 value={interestRate}
                 onChange={(e) => setInterestRate(parseFloat(e.target.value))}
-                className="w-full accent-emerald-600"
+                className="w-full accent-zen-500 h-2 bg-slate-200 dark:bg-slate-800 rounded-lg cursor-pointer"
               />
             </div>
-          </div>
 
-          {/* EMI Output Box */}
-          <div className="p-4 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-xl border border-emerald-200 dark:border-emerald-800 grid grid-cols-3 gap-2 text-center">
-            <div>
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Monthly EMI</span>
-              <span className="font-mono text-lg font-extrabold text-emerald-600 dark:text-emerald-400">
-                ${emi.toFixed(2)}
-              </span>
+            {/* Live Calculation Output Card */}
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0c152d] border border-slate-200/80 dark:border-slate-800 space-y-3">
+              <div className="text-center pb-2 border-b border-slate-200 dark:border-slate-700">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Monthly EMI Due</div>
+                <div className="text-3xl font-black font-mono text-zen-600 dark:text-cyan-400 mt-0.5">
+                  ${emi.toFixed(2)}
+                </div>
+              </div>
+              <div className="flex justify-between text-slate-500 text-xs">
+                <span>Total Principal:</span>
+                <span className="font-mono font-bold text-slate-800 dark:text-slate-200">${principal.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-slate-500 text-xs">
+                <span>Total Interest Payable:</span>
+                <span className="font-mono font-bold text-amber-600 dark:text-amber-400">+${totalInterest.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-slate-500 text-xs font-bold pt-1 border-t border-slate-200 dark:border-slate-700">
+                <span>Total Amount Repayable:</span>
+                <span className="font-mono text-slate-900 dark:text-white">${totalPayable.toFixed(2)}</span>
+              </div>
             </div>
-            <div>
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Total Interest</span>
-              <span className="font-mono text-sm font-bold text-slate-700 dark:text-slate-300">
-                ${totalInterest.toFixed(2)}
-              </span>
-            </div>
-            <div>
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Total Repayment</span>
-              <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
-                ${totalPayable.toFixed(2)}
-              </span>
-            </div>
-          </div>
 
-          <div className="pt-2">
+            {applicationSuccess && (
+              <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Credit application approved and disbursed to primary account!</span>
+              </div>
+            )}
+
             <Button
-              className="w-full"
               onClick={() => applyMutation.mutate()}
               isLoading={applyMutation.isPending}
+              className="w-full py-3 shadow-zen font-black"
             >
-              Apply for Loan (${principal.toLocaleString()})
+              <span>Apply for Bank Asia ZEN Smart Credit</span>
+              <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
-            {applicationSuccess && (
-              <p className="mt-2 text-center text-xs text-emerald-600 font-semibold flex items-center justify-center gap-1">
-                <CheckCircle2 className="w-4 h-4" /> Loan Application Approved & Disbursed!
-              </p>
-            )}
           </div>
         </div>
 
-        {/* Active Loans Card */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-            Active Loan Facilities
-          </h3>
-
-          <div className="space-y-3">
-            {loans.length === 0 ? (
-              <div className="p-6 text-center text-xs text-slate-400">
-                No active loans found.
-              </div>
-            ) : (
-              loans.map((loan: Loan) => (
-                <div
-                  key={loan.id}
-                  className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 space-y-1.5 text-xs"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold font-mono">
-                      ${parseFloat(loan.principal_amount).toLocaleString()}
-                    </span>
-                    <Badge variant={loan.status === 'ACTIVE' || loan.status === 'APPROVED' ? 'success' : 'neutral'} size="sm">
-                      {loan.status}
-                    </Badge>
-                  </div>
-                  <div className="flex justify-between text-slate-500 font-mono text-[11px]">
-                    <span>Monthly: ${parseFloat(loan.emi_amount).toFixed(2)}</span>
-                    <span>Rate: {parseFloat(loan.interest_rate)}%</span>
-                  </div>
-                  <div className="text-[10px] text-slate-400">
-                    Remaining: ${parseFloat(loan.remaining_balance).toLocaleString()} • {loan.term_months} mo
-                  </div>
-                </div>
-              ))
-            )}
+        {/* Info card */}
+        <div>
+          <div className="zen-gradient-card p-6 rounded-3xl text-white shadow-zen space-y-3">
+            <span className="text-[10px] font-black uppercase tracking-widest text-cyan-300 bg-white/10 px-2.5 py-0.5 rounded-full">
+              Pre-Approved Facility
+            </span>
+            <h4 className="text-lg font-black tracking-tight">ZEN Express Disbursal</h4>
+            <p className="text-xs text-white/80 leading-relaxed">
+              Approved funds are directly credited to your Bank Asia ZEN current or savings account with zero hidden processing charges.
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
 };
-

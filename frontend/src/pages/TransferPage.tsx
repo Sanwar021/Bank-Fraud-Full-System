@@ -1,17 +1,23 @@
 import React from 'react';
 import { TransferWizard } from '../components/banking/TransferWizard';
-import { ArrowRightLeft, ShieldAlert, Cpu, GitCommit } from 'lucide-react';
+import { ArrowRightLeft, ShieldAlert, Cpu, GitCommit, ShieldCheck } from 'lucide-react';
 
 export const TransferPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div>
-        <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-          <ArrowRightLeft className="w-5 h-5 text-emerald-600" />
-          Transfer Funds & Intelligent Fraud Evaluation
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
+            Bank Asia ZEN Instant Transfer
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+        </div>
+        <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 mt-0.5">
+          <ArrowRightLeft className="w-6 h-6 text-zen-500" />
+          <span>Fund Transfer & Real-Time AI Fraud Evaluation</span>
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Every transaction passes through our real-time 3-model machine learning defense pipeline before double-entry posting.
+          Every transaction passes through our sub-50ms tri-model machine learning defense pipeline before double-entry posting.
         </p>
       </div>
 
@@ -19,34 +25,34 @@ export const TransferPage: React.FC = () => {
       <TransferWizard />
 
       {/* State Machine Architectural Diagram */}
-      <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mb-3 flex items-center gap-2">
-          <GitCommit className="w-4 h-4 text-emerald-600" />
-          Controlled Transaction State Machine
+      <div className="bg-white dark:bg-[#090B28] p-5 sm:p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs">
+        <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mb-3.5 flex items-center gap-2">
+          <GitCommit className="w-4 h-4 text-zen-500" />
+          <span>Bank Asia ZEN Transaction State Machine</span>
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
-            <span className="font-bold text-slate-800 dark:text-slate-200 block">1. INITIATED</span>
+          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c152d] border border-slate-200/80 dark:border-slate-800">
+            <span className="font-extrabold text-slate-800 dark:text-slate-200 block">1. INITIATED</span>
             <p className="text-[10px] text-slate-400 mt-1">
-              Validates balances, ownership & generates unique reference.
+              Verifies balances, destination validity & assigns reference.
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
-            <span className="font-bold text-indigo-600 dark:text-indigo-400 block">2. RISK ASSESSMENT</span>
+          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c152d] border border-slate-200/80 dark:border-slate-800">
+            <span className="font-extrabold text-zen-600 dark:text-cyan-400 block">2. RISK ASSESSMENT</span>
             <p className="text-[10px] text-slate-400 mt-1">
-              Assembles velocity features & invokes XGBoost + IF + PyTorch AE.
+              Assembles velocity telemetry & queries Python tri-model ensemble.
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
-            <span className="font-bold text-emerald-600 dark:text-emerald-400 block">3. APPROVED</span>
+          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c152d] border border-slate-200/80 dark:border-slate-800">
+            <span className="font-extrabold text-emerald-600 dark:text-emerald-400 block">3. APPROVED</span>
             <p className="text-[10px] text-slate-400 mt-1">
-              Low risk score (&lt;30.0). Writes balanced atomic ledger entries.
+              Low risk (&lt;30.0). Writes balanced atomic ledger entries.
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
-            <span className="font-bold text-rose-600 dark:text-rose-400 block">4. BLOCKED / OTP</span>
+          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c152d] border border-slate-200/80 dark:border-slate-800">
+            <span className="font-extrabold text-rose-600 dark:text-rose-400 block">4. BLOCKED / OTP</span>
             <p className="text-[10px] text-slate-400 mt-1">
-              Elevated risk requires 2FA or triggers automated block & alert.
+              Elevated risk challenges for OTP or blocks with zero balance debit.
             </p>
           </div>
         </div>
@@ -54,4 +60,3 @@ export const TransferPage: React.FC = () => {
     </div>
   );
 };
-

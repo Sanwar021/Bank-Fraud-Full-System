@@ -4,9 +4,30 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen;
+    @apply bg-slate-50 text-slate-900 dark:bg-[#07091e] dark:text-slate-100 min-h-screen antialiased selection:bg-zen-500 selection:text-white;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+}
+
+/* Bank Asia ZEN custom gradient & card classes */
+.zen-gradient-card {
+  background: linear-gradient(135deg, #2061AE 0%, #154177 55%, #090B28 100%);
+}
+
+.zen-gradient-subtle {
+  background: linear-gradient(135deg, rgba(32, 97, 174, 0.08) 0%, rgba(9, 11, 40, 0.03) 100%);
+}
+
+.zen-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .zen-glass {
+  background: rgba(13, 21, 42, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* Custom scrollbars */
@@ -21,6 +42,5 @@
   @apply bg-slate-300 dark:bg-slate-700 rounded;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400 dark:bg-slate-600;
+  @apply bg-zen-500/60 dark:bg-zen-400/60;
 }
-

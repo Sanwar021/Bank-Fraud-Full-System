@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Wallet, Download, Filter, FileSpreadsheet, ArrowRightLeft } from 'lucide-react';
+import { Wallet, Download, Filter, FileSpreadsheet, ArrowRightLeft, Sparkles } from 'lucide-react';
 import { bankingApi, Account } from '../api/banking';
 import { AccountCard } from '../components/banking/AccountCard';
 import { TransactionTable } from '../components/banking/TransactionTable';
@@ -37,7 +37,7 @@ export const AccountsPage: React.FC = () => {
       const url = window.URL.createObjectURL(new Blob([blob]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `statement-${selectedAccountId}.csv`);
+      link.setAttribute('download', `bank-asia-zen-statement-${selectedAccountId}.csv`);
       document.body.appendChild(link);
       link.click();
       link.parentNode?.removeChild(link);
@@ -50,11 +50,17 @@ export const AccountsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-            Accounts & Financial Statements
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
+              Bank Asia ZEN Accounts
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          </div>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-0.5">
+            Deposit Portfolio & E-Statements
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Select an account to view its double-entry ledger activity and export official statements.
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Select an account to view its double-entry ledger activity and export certified bank statements.
           </p>
         </div>
 
@@ -63,13 +69,14 @@ export const AccountsPage: React.FC = () => {
           isLoading={downloading}
           variant="outline"
           disabled={!selectedAccountId}
+          className="font-bold shadow-xs"
         >
-          <Download className="w-4 h-4 mr-2" /> Export CSV Statement
+          <Download className="w-4 h-4 mr-2 text-zen-500" /> Export E-Statement (CSV)
         </Button>
       </div>
 
       {/* Account Selection Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {accounts.map((acct) => (
           <AccountCard
             key={acct.id}
@@ -83,11 +90,11 @@ export const AccountsPage: React.FC = () => {
       {/* Account Ledger Entries */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
-            Immutable Transaction Ledger
+          <h2 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <FileSpreadsheet className="w-4 h-4 text-zen-500" />
+            <span>Immutable Double-Entry Ledger Entries</span>
           </h2>
-          <span className="text-xs text-slate-400 font-mono">
+          <span className="text-xs text-slate-400 font-mono font-bold">
             {transactions.length} Recorded Entries
           </span>
         </div>
@@ -100,4 +107,3 @@ export const AccountsPage: React.FC = () => {
     </div>
   );
 };
-
