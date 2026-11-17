@@ -15,19 +15,19 @@ import (
 )
 
 type SeedCustomerDef struct {
-	Email        string
-	Password     string
-	FirstName    string
-	LastName     string
-	Phone        string
-	NationalID   string
-	KYCStatus    string
-	RiskTier     string
-	Address      string
-	Income       float64
-	SavingsBal   float64
-	CurrentBal   float64
-	CardMasked   string
+	Email      string
+	Password   string
+	FirstName  string
+	LastName   string
+	Phone      string
+	NationalID string
+	KYCStatus  string
+	RiskTier   string
+	Address    string
+	Income     float64
+	SavingsBal float64
+	CurrentBal float64
+	CardMasked string
 }
 
 func main() {
@@ -116,7 +116,7 @@ func main() {
 			CustomerID:    sysCust.ID,
 			AccountNumber: "ACC-SYS-RESERVE-01",
 			AccountType:   models.AccountSystemReserve,
-			Currency:      "USD",
+			Currency:      "BDT",
 			Status:        models.AccountStatusActive,
 			Balance:       decimal.NewFromFloat(10000000.0000), // $10,000,000 Initial Treasury Reserve
 			DailyLimit:    decimal.NewFromFloat(10000000.0000),
@@ -128,68 +128,18 @@ func main() {
 		log.Println("[Seed] System Central Reserve Account created.")
 	}
 
-	// 4. Seed 10 Fictional Customers with 30 Accounts
+	// 4. Seed 10 synthetic Bangladeshi customers with 30 BDT accounts.
 	customers := []SeedCustomerDef{
-		{
-			Email: "john.doe@bankinvestigation.com", Password: "Password123!",
-			FirstName: "John", LastName: "Doe", Phone: "+1-555-0101", NationalID: "NID-US-90101",
-			KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "742 Evergreen Terrace, Springfield",
-			Income: 6500.0, SavingsBal: 12500.0, CurrentBal: 3200.0, CardMasked: "4532-••••-••••-1088",
-		},
-		{
-			Email: "alice.smith@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Alice", LastName: "Smith", Phone: "+1-555-0102", NationalID: "NID-US-90102",
-			KYCStatus: "VERIFIED", RiskTier: "LOW", Address: "10880 Wilshire Blvd, Los Angeles",
-			Income: 9200.0, SavingsBal: 45000.0, CurrentBal: 8500.0, CardMasked: "4532-••••-••••-2041",
-		},
-		{
-			Email: "robert.johnson@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Robert", LastName: "Johnson", Phone: "+1-555-0103", NationalID: "NID-US-90103",
-			KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "450 Lexington Ave, New York",
-			Income: 5400.0, SavingsBal: 8400.0, CurrentBal: 1950.0, CardMasked: "4532-••••-••••-3092",
-		},
-		{
-			Email: "emily.davis@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Emily", LastName: "Davis", Phone: "+1-555-0104", NationalID: "NID-US-90104",
-			KYCStatus: "VERIFIED", RiskTier: "LOW", Address: "200 E Randolph St, Chicago",
-			Income: 8800.0, SavingsBal: 31000.0, CurrentBal: 6200.0, CardMasked: "4532-••••-••••-4105",
-		},
-		{
-			Email: "michael.wilson@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Michael", LastName: "Wilson", Phone: "+1-555-0105", NationalID: "NID-US-90105",
-			KYCStatus: "VERIFIED", RiskTier: "ELEVATED", Address: "100 Congress Ave, Austin",
-			Income: 4200.0, SavingsBal: 3500.0, CurrentBal: 850.0, CardMasked: "4532-••••-••••-5118",
-		},
-		{
-			Email: "sarah.brown@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Sarah", LastName: "Brown", Phone: "+1-555-0106", NationalID: "NID-US-90106",
-			KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "555 California St, San Francisco",
-			Income: 7600.0, SavingsBal: 19500.0, CurrentBal: 4100.0, CardMasked: "4532-••••-••••-6229",
-		},
-		{
-			Email: "david.taylor@bankinvestigation.com", Password: "Password123!",
-			FirstName: "David", LastName: "Taylor", Phone: "+1-555-0107", NationalID: "NID-US-90107",
-			KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "1201 3rd Ave, Seattle",
-			Income: 6900.0, SavingsBal: 14200.0, CurrentBal: 2800.0, CardMasked: "4532-••••-••••-7330",
-		},
-		{
-			Email: "jessica.anderson@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Jessica", LastName: "Anderson", Phone: "+1-555-0108", NationalID: "NID-US-90108",
-			KYCStatus: "VERIFIED", RiskTier: "LOW", Address: "1111 Lincoln Rd, Miami Beach",
-			Income: 11500.0, SavingsBal: 68000.0, CurrentBal: 12400.0, CardMasked: "4532-••••-••••-8441",
-		},
-		{
-			Email: "daniel.thomas@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Daniel", LastName: "Thomas", Phone: "+1-555-0109", NationalID: "NID-US-90109",
-			KYCStatus: "VERIFIED", RiskTier: "HIGH", Address: "800 N Glebe Rd, Arlington",
-			Income: 3800.0, SavingsBal: 2100.0, CurrentBal: 450.0, CardMasked: "4532-••••-••••-9552",
-		},
-		{
-			Email: "laura.martinez@bankinvestigation.com", Password: "Password123!",
-			FirstName: "Laura", LastName: "Martinez", Phone: "+1-555-0110", NationalID: "NID-US-90110",
-			KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "1000 Louisiana St, Houston",
-			Income: 7100.0, SavingsBal: 16800.0, CurrentBal: 3750.0, CardMasked: "4532-••••-••••-0663",
-		},
+		{Email: "john.doe@bankinvestigation.com", Password: "Password123!", FirstName: "Jannat", LastName: "Dewan", Phone: "+8801711000101", NationalID: "SYN-BD-90101", KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "Dhanmondi, Dhaka", Income: 95000, SavingsBal: 485000, CurrentBal: 126500, CardMasked: "4532-XXXX-XXXX-1088"},
+		{Email: "alice.smith@bankinvestigation.com", Password: "Password123!", FirstName: "Ayesha", LastName: "Rahman", Phone: "+8801811000102", NationalID: "SYN-BD-90102", KYCStatus: "VERIFIED", RiskTier: "LOW", Address: "Gulshan, Dhaka", Income: 145000, SavingsBal: 920000, CurrentBal: 248000, CardMasked: "4532-XXXX-XXXX-2041"},
+		{Email: "robert.johnson@bankinvestigation.com", Password: "Password123!", FirstName: "Tanvir", LastName: "Hasan", Phone: "+8801911000103", NationalID: "SYN-BD-90103", KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "Agrabad, Chattogram", Income: 78000, SavingsBal: 312000, CurrentBal: 98500, CardMasked: "4532-XXXX-XXXX-3092"},
+		{Email: "emily.davis@bankinvestigation.com", Password: "Password123!", FirstName: "Nusrat", LastName: "Jahan", Phone: "+8801611000104", NationalID: "SYN-BD-90104", KYCStatus: "VERIFIED", RiskTier: "LOW", Address: "Uttara, Dhaka", Income: 118000, SavingsBal: 675000, CurrentBal: 189000, CardMasked: "4532-XXXX-XXXX-4105"},
+		{Email: "michael.wilson@bankinvestigation.com", Password: "Password123!", FirstName: "Mahmudul", LastName: "Islam", Phone: "+8801511000105", NationalID: "SYN-BD-90105", KYCStatus: "VERIFIED", RiskTier: "ELEVATED", Address: "Zindabazar, Sylhet", Income: 62000, SavingsBal: 175000, CurrentBal: 54000, CardMasked: "4532-XXXX-XXXX-5118"},
+		{Email: "sarah.brown@bankinvestigation.com", Password: "Password123!", FirstName: "Farzana", LastName: "Akter", Phone: "+8801311000106", NationalID: "SYN-BD-90106", KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "Sonadanga, Khulna", Income: 87000, SavingsBal: 408000, CurrentBal: 114000, CardMasked: "4532-XXXX-XXXX-6229"},
+		{Email: "david.taylor@bankinvestigation.com", Password: "Password123!", FirstName: "Arif", LastName: "Hossain", Phone: "+8801711000107", NationalID: "SYN-BD-90107", KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "Boalia, Rajshahi", Income: 72000, SavingsBal: 286000, CurrentBal: 83000, CardMasked: "4532-XXXX-XXXX-7330"},
+		{Email: "jessica.anderson@bankinvestigation.com", Password: "Password123!", FirstName: "Sadia", LastName: "Chowdhury", Phone: "+8801811000108", NationalID: "SYN-BD-90108", KYCStatus: "VERIFIED", RiskTier: "LOW", Address: "Banani, Dhaka", Income: 175000, SavingsBal: 1250000, CurrentBal: 355000, CardMasked: "4532-XXXX-XXXX-8441"},
+		{Email: "daniel.thomas@bankinvestigation.com", Password: "Password123!", FirstName: "Rakib", LastName: "Ahmed", Phone: "+8801911000109", NationalID: "SYN-BD-90109", KYCStatus: "VERIFIED", RiskTier: "HIGH", Address: "Sadar, Cumilla", Income: 48000, SavingsBal: 92000, CurrentBal: 31500, CardMasked: "4532-XXXX-XXXX-9552"},
+		{Email: "laura.martinez@bankinvestigation.com", Password: "Password123!", FirstName: "Tanjila", LastName: "Sultana", Phone: "+8801611000110", NationalID: "SYN-BD-90110", KYCStatus: "VERIFIED", RiskTier: "STANDARD", Address: "Sadar, Barishal", Income: 81000, SavingsBal: 348000, CurrentBal: 106000, CardMasked: "4532-XXXX-XXXX-0663"},
 	}
 
 	for idx, c := range customers {
@@ -226,6 +176,11 @@ func main() {
 			}
 			db.Create(&customer)
 		}
+		db.Model(&customer).Updates(map[string]interface{}{
+			"first_name": c.FirstName, "last_name": c.LastName, "phone": c.Phone,
+			"national_id": c.NationalID, "kyc_status": c.KYCStatus, "risk_tier": c.RiskTier,
+			"address": c.Address, "monthly_income": decimal.NewFromFloat(c.Income),
+		})
 
 		// Account 1: Savings Account
 		savNum := fmt.Sprintf("ACC-SAV-%06d", 100000+idx*10+1)
@@ -235,17 +190,18 @@ func main() {
 				CustomerID:    customer.ID,
 				AccountNumber: savNum,
 				AccountType:   models.AccountSavings,
-				Currency:      "USD",
+				Currency:      "BDT",
 				Status:        models.AccountStatusActive,
 				Balance:       decimal.NewFromFloat(c.SavingsBal),
-				DailyLimit:    decimal.NewFromFloat(25000.0),
-				PerTxLimit:    decimal.NewFromFloat(10000.0),
+				DailyLimit:    decimal.NewFromFloat(500000),
+				PerTxLimit:    decimal.NewFromFloat(250000),
 				CreatedAt:     time.Now().UTC(),
 				UpdatedAt:     time.Now().UTC(),
 			}
 			db.Create(&savAcct)
 			postInitialLedger(db, sysReserve.ID, savAcct.ID, savAcct.Balance, "Initial Savings Capital Deposit")
 		}
+		db.Model(&savAcct).Updates(map[string]interface{}{"currency": "BDT", "daily_limit": 500000, "per_tx_limit": 250000})
 
 		// Account 2: Current Account
 		curNum := fmt.Sprintf("ACC-CUR-%06d", 100000+idx*10+2)
@@ -255,17 +211,18 @@ func main() {
 				CustomerID:    customer.ID,
 				AccountNumber: curNum,
 				AccountType:   models.AccountCurrent,
-				Currency:      "USD",
+				Currency:      "BDT",
 				Status:        models.AccountStatusActive,
 				Balance:       decimal.NewFromFloat(c.CurrentBal),
-				DailyLimit:    decimal.NewFromFloat(50000.0),
-				PerTxLimit:    decimal.NewFromFloat(15000.0),
+				DailyLimit:    decimal.NewFromFloat(1000000),
+				PerTxLimit:    decimal.NewFromFloat(500000),
 				CreatedAt:     time.Now().UTC(),
 				UpdatedAt:     time.Now().UTC(),
 			}
 			db.Create(&curAcct)
 			postInitialLedger(db, sysReserve.ID, curAcct.ID, curAcct.Balance, "Initial Current Account Capital Deposit")
 		}
+		db.Model(&curAcct).Updates(map[string]interface{}{"currency": "BDT", "daily_limit": 1000000, "per_tx_limit": 500000})
 
 		// Account 3: Fixed Deposit Account (for 10 customers = 30 accounts total)
 		fdrNum := fmt.Sprintf("ACC-FDR-%06d", 100000+idx*10+3)
@@ -276,7 +233,7 @@ func main() {
 				CustomerID:    customer.ID,
 				AccountNumber: fdrNum,
 				AccountType:   models.AccountFixedDeposit,
-				Currency:      "USD",
+				Currency:      "BDT",
 				Status:        models.AccountStatusActive,
 				Balance:       fdrBal,
 				DailyLimit:    decimal.Zero,
@@ -328,8 +285,8 @@ func main() {
 					CustomerID:    customer.ID,
 					Name:          fmt.Sprintf("%s %s", prevCust.FirstName, prevCust.LastName),
 					AccountNumber: benAcct,
-					BankName:      "Bank Investigation",
-					RoutingNumber: "021000021",
+					BankName:      "Mrraw Bank PLC",
+					RoutingNumber: "SYN-BD-001",
 					IsVerified:    true,
 					CreatedAt:     time.Now().UTC(),
 				}
@@ -344,8 +301,8 @@ func main() {
 				UserID:    user.ID,
 				Type:      "SYSTEM",
 				Channel:   "IN_APP",
-				Title:     "Welcome to Bank Investigation",
-				Message:   fmt.Sprintf("Welcome %s! Your accounts and debit cards are fully active and ready for simulated transactions.", c.FirstName),
+				Title:     "Welcome to Mrraw Banking",
+				Message:   fmt.Sprintf("স্বাগতম %s! Your synthetic BDT accounts are ready for the Bangladesh banking demo.", c.FirstName),
 				IsRead:    false,
 				Metadata:  "{}",
 				CreatedAt: time.Now().UTC(),

@@ -53,12 +53,7 @@ export const authApi = {
   },
 
   logout: async () => {
-    try {
-      await api.post('/auth/logout');
-    } finally {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-    }
+    await api.post('/auth/logout');
   },
 
   getMe: async (): Promise<User> => {

@@ -23,24 +23,24 @@ type TokenValidator interface {
 func AuthMiddleware(validator TokenValidator) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
+		var token string
+		if authHeader != "" {
+			parts := strings.Split(authHeader, " ")
+			if len(parts) == 2 && strings.EqualFold(parts[0], "bearer") {
+				token = parts[1]
+			}
+		} else if cookieToken, err := c.Cookie("access_token"); err == nil {
+			token = cookieToken
+		}
+		if token == "" {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error":   "Unauthorized",
-				"message": "Authorization header is required",
+				"message": "A valid authenticated session is required",
 			})
 			return
 		}
 
-		parts := strings.Split(authHeader, " ")
-		if len(parts) != 2 || strings.ToLower(parts[0]) != "bearer" {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"error":   "Unauthorized",
-				"message": "Invalid authorization header format. Expected 'Bearer <token>'",
-			})
-			return
-		}
-
-		claims, err := validator.ValidateToken(parts[1])
+		claims, err := validator.ValidateToken(token)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error":   "Unauthorized",

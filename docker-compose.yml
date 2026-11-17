@@ -42,6 +42,8 @@ services:
     environment:
       - PORT=8000
       - HOST=0.0.0.0
+      - ML_SERVICE_TOKEN=${ML_SERVICE_TOKEN:-}
+      - ML_ALLOWED_ORIGINS=${ML_ALLOWED_ORIGINS:-http://localhost:3002}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 10s
@@ -66,7 +68,7 @@ services:
     environment:
       SERVER_PORT: 8080
       SERVER_HOST: 0.0.0.0
-      APP_ENV: production
+      APP_ENV: ${APP_ENV:-development}
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: ${DB_USER:-postgres}
@@ -76,8 +78,10 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       ML_SERVICE_URL: http://ml:8000
+      ML_SERVICE_TOKEN: ${ML_SERVICE_TOKEN:-}
       ML_INFERENCE_TIMEOUT_MS: 150
-      JWT_SECRET: ${JWT_SECRET:-super-secure-production-grade-hmac-sha256-jwt-secret-key-32-chars}
+      JWT_SECRET: ${JWT_SECRET:-development-only-jwt-secret-change-before-production}
+      EXPOSE_DEMO_CODES: ${EXPOSE_DEMO_CODES:-true}
       ALLOWED_ORIGINS: "http://localhost:${WEB_PORT:-3002},http://localhost:5173"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
@@ -95,6 +99,26 @@ services:
       - "${WEB_PORT:-3002}:80"
     depends_on:
       - api
+
+  simulator:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bank_simulator
+    command: ["/app/simulator"]
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-bank_investigation}
+      DB_SSLMODE: disable
+      SIMULATOR_INTERVAL_SECONDS: ${SIMULATOR_INTERVAL_SECONDS:-20}
 
 volumes:
   postgres_data:

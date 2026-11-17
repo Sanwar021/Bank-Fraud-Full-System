@@ -118,11 +118,27 @@ func (h *LoanHandler) Apply(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	if req.PrincipalAmount.LessThan(decimal.NewFromInt(1000)) || req.PrincipalAmount.GreaterThan(decimal.NewFromInt(50000)) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Principal amount must be between $1,000 and $50,000"})
+		return
+	}
+	if req.InterestRate.LessThan(decimal.NewFromInt(5)) || req.InterestRate.GreaterThan(decimal.NewFromInt(18)) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Interest rate must be between 5% and 18%"})
+		return
+	}
+	if req.TermMonths < 6 || req.TermMonths > 60 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Loan term must be between 6 and 60 months"})
+		return
+	}
 
 	userID := c.MustGet(middleware.CtxUserIDKey).(uuid.UUID)
 	var cust models.Customer
 	if err := h.db.Where("user_id = ?", userID).First(&cust).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+		return
+	}
+	if cust.KYCStatus != "VERIFIED" {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Verified KYC is required before applying for credit"})
 		return
 	}
 
@@ -132,6 +148,10 @@ func (h *LoanHandler) Apply(c *gin.Context) {
 	n := float64(req.TermMonths)
 	factor := math.Pow(1+r, n)
 	emiFloat := p * r * factor / (factor - 1)
+	if cust.MonthlyIncome.LessThanOrEqual(decimal.Zero) || decimal.NewFromFloat(emiFloat).GreaterThan(cust.MonthlyIncome.Mul(decimal.NewFromFloat(0.40))) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Requested loan exceeds the maximum 40% debt-to-income threshold"})
+		return
+	}
 
 	loan := models.Loan{
 		CustomerID:       cust.ID,
@@ -140,7 +160,7 @@ func (h *LoanHandler) Apply(c *gin.Context) {
 		TermMonths:       req.TermMonths,
 		EMIAmount:        decimal.NewFromFloat(emiFloat),
 		RemainingBalance: req.PrincipalAmount,
-		Status:           "APPROVED", // Instant simulated approval for demo
+		Status:           "PENDING",
 		CreatedAt:        time.Now().UTC(),
 	}
 
@@ -150,7 +170,7 @@ func (h *LoanHandler) Apply(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
-		"message": "Loan application approved and active",
+		"message": "Loan application submitted for underwriting review",
 		"data":    loan,
 	})
 }

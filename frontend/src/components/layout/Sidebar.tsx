@@ -25,7 +25,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen = false, onMobileCl
     </div>
     <div className="reference-scheduled">
       <h3>Scheduled Payments</h3>
-      {[['Monthly Rent','#5b8cff'],['Food Payment','#ff6680'],['Utility Bills','#26c7ad']].map(([name,color]) => <div key={name}><i style={{borderColor:color}}/><span>{name}</span></div>)}
+      {[['House Rent','#5b8cff'],['DESCO Bill','#ff6680'],['DPS Installment','#26c7ad']].map(([name,color]) => <div key={name}><i style={{borderColor:color}}/><span>{name}</span></div>)}
       <div className="reference-secure"><WalletCards size={16}/><span>Secure banking<br/><small>Protected 24/7</small></span></div>
     </div>
   </>;

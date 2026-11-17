@@ -1,8 +1,8 @@
 # Bank Investigation — Development Status
 
 ## Current Status
-- **Current Phase**: PHASE 1: Complete. Ready for PHASE 2.
-- **Overall Completion**: ~25%
+- **Current Phase**: Integrated demonstration platform with core banking, transfers, fraud scoring, investigation, cards, loans, deposits, and responsive web UI.
+- **Overall Completion**: Feature-complete for the simulated portfolio/demo scope; not certified for production banking use.
 
 ## Work Completed
 - [x] Phase 0 Architecture and System Specification delivered.
@@ -28,4 +28,4 @@
 - Admin: `admin@bankinvestigation.com` | `Admin123!`
 
 ## Next Action
-Proceed with PHASE 2: Accounts, Ledger and Transfers (Double-entry engine, SELECT FOR UPDATE concurrency protection, limits, fees, statements CSV/PDF export, idempotency).
+Continue production-hardening work: HttpOnly cookie authentication, deployment secret management, observability, backup/restore automation, frontend E2E coverage, and formal compliance controls.

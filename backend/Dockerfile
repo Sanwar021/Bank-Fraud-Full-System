@@ -11,6 +11,7 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/api ./cmd/api
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/seed ./cmd/seed
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/simulator ./cmd/simulator
 
 FROM alpine:3.20
 
@@ -20,6 +21,7 @@ RUN apk add --no-cache ca-certificates tzdata wget
 
 COPY --from=builder /app/bin/api /app/api
 COPY --from=builder /app/bin/seed /app/seed
+COPY --from=builder /app/bin/simulator /app/simulator
 COPY migrations /app/migrations
 
 EXPOSE 8080

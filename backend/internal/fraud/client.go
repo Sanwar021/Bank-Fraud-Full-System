@@ -15,22 +15,27 @@ var (
 )
 
 type FraudClient struct {
-	baseURL    string
-	httpClient *http.Client
-	timeout    time.Duration
+	baseURL      string
+	httpClient   *http.Client
+	timeout      time.Duration
+	serviceToken string
 }
 
-func NewFraudClient(baseURL string, timeout time.Duration) *FraudClient {
+func NewFraudClient(baseURL string, timeout time.Duration, serviceToken ...string) *FraudClient {
 	if timeout <= 0 {
 		timeout = 150 * time.Millisecond
 	}
-	return &FraudClient{
+	client := &FraudClient{
 		baseURL: baseURL,
 		timeout: timeout,
 		httpClient: &http.Client{
 			Timeout: timeout,
 		},
 	}
+	if len(serviceToken) > 0 {
+		client.serviceToken = serviceToken[0]
+	}
+	return client
 }
 
 func (c *FraudClient) ScoreTransaction(ctx context.Context, req FraudScoreRequest) (*FraudScoreResponse, error) {
@@ -46,6 +51,9 @@ func (c *FraudClient) ScoreTransaction(ctx context.Context, req FraudScoreReques
 		return nil, fmt.Errorf("failed to construct fraud request: %w", err)
 	}
 	httpReq.Header.Set("Content-Type", "application/json")
+	if c.serviceToken != "" {
+		httpReq.Header.Set("X-Internal-Service-Token", c.serviceToken)
+	}
 
 	resp, err := c.httpClient.Do(httpReq)
 	if err != nil {
@@ -64,4 +72,3 @@ func (c *FraudClient) ScoreTransaction(ctx context.Context, req FraudScoreReques
 
 	return &scoreResp, nil
 }
-

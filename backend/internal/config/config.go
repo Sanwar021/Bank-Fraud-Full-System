@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -10,28 +11,29 @@ import (
 )
 
 type Config struct {
-	ServerPort           string
-	ServerHost           string
-	AppEnv               string
-	AppName              string
-	DBHost               string
-	DBPort               string
-	DBUser               string
-	DBPassword           string
-	DBName               string
-	DBSSLMode            string
-	RedisHost            string
-	RedisPort            string
-	RedisPassword        string
-	RedisDB              int
-	JWTSecret            string
-	JWTAccessExpiry      time.Duration
-	JWTRefreshExpiry     time.Duration
-	MLServiceURL         string
-	MLInferenceTimeout   time.Duration
-	FraudLowThreshold    float64
-	FraudHighThreshold   float64
-	AllowedOrigins       []string
+	ServerPort         string
+	ServerHost         string
+	AppEnv             string
+	AppName            string
+	DBHost             string
+	DBPort             string
+	DBUser             string
+	DBPassword         string
+	DBName             string
+	DBSSLMode          string
+	RedisHost          string
+	RedisPort          string
+	RedisPassword      string
+	RedisDB            int
+	JWTSecret          string
+	JWTAccessExpiry    time.Duration
+	JWTRefreshExpiry   time.Duration
+	MLServiceURL       string
+	MLServiceToken     string
+	MLInferenceTimeout time.Duration
+	FraudLowThreshold  float64
+	FraudHighThreshold float64
+	AllowedOrigins     []string
 }
 
 func LoadConfig() (*Config, error) {
@@ -49,7 +51,7 @@ func LoadConfig() (*Config, error) {
 		origins[i] = strings.TrimSpace(origins[i])
 	}
 
-	return &Config{
+	cfg := &Config{
 		ServerPort:         getEnv("SERVER_PORT", "8080"),
 		ServerHost:         getEnv("SERVER_HOST", "0.0.0.0"),
 		AppEnv:             getEnv("APP_ENV", "development"),
@@ -64,15 +66,34 @@ func LoadConfig() (*Config, error) {
 		RedisPort:          getEnv("REDIS_PORT", "6379"),
 		RedisPassword:      getEnv("REDIS_PASSWORD", ""),
 		RedisDB:            getEnvInt("REDIS_DB", 0),
-		JWTSecret:          getEnv("JWT_SECRET", "super-secure-production-grade-hmac-sha256-jwt-secret-key-32-chars"),
+		JWTSecret:          getEnv("JWT_SECRET", "development-only-jwt-secret-change-before-production"),
 		JWTAccessExpiry:    jwtAccessExp,
 		JWTRefreshExpiry:   jwtRefreshExp,
 		MLServiceURL:       getEnv("ML_SERVICE_URL", "http://localhost:8000"),
+		MLServiceToken:     getEnv("ML_SERVICE_TOKEN", ""),
 		MLInferenceTimeout: mlTimeout,
 		FraudLowThreshold:  getEnvFloat("FRAUD_LOW_THRESHOLD", 30.0),
 		FraudHighThreshold: getEnvFloat("FRAUD_HIGH_THRESHOLD", 70.0),
 		AllowedOrigins:     origins,
-	}, nil
+	}
+	if strings.EqualFold(cfg.AppEnv, "production") {
+		weak := cfg.JWTSecret == "development-only-jwt-secret-change-before-production" ||
+			strings.Contains(strings.ToLower(cfg.JWTSecret), "replace") ||
+			strings.Contains(strings.ToLower(cfg.JWTSecret), "change")
+		if weak || len(cfg.JWTSecret) < 32 {
+			return nil, fmt.Errorf("JWT_SECRET must be an explicit, strong secret of at least 32 characters in production")
+		}
+		if len(cfg.MLServiceToken) < 32 {
+			return nil, fmt.Errorf("ML_SERVICE_TOKEN must be at least 32 characters in production")
+		}
+	}
+	return cfg, nil
+}
+
+// DemoCodesEnabled permits OTP disclosure only in an explicitly enabled non-production demo.
+func DemoCodesEnabled() bool {
+	return !strings.EqualFold(getEnv("APP_ENV", "development"), "production") &&
+		strings.EqualFold(getEnv("EXPOSE_DEMO_CODES", "false"), "true")
 }
 
 func getEnv(key, defaultVal string) string {
@@ -108,4 +129,3 @@ func getEnvDuration(key string, defaultVal time.Duration) time.Duration {
 	}
 	return defaultVal
 }
-

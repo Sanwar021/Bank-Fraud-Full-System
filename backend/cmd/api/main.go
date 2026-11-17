@@ -61,7 +61,7 @@ func main() {
 
 	// 5. Initialize Financial & Fraud Engines
 	ledgerEngine := ledger.NewLedgerEngine(db)
-	fraudClient := fraud.NewFraudClient(cfg.MLServiceURL, cfg.MLInferenceTimeout)
+	fraudClient := fraud.NewFraudClient(cfg.MLServiceURL, cfg.MLInferenceTimeout, cfg.MLServiceToken)
 	transferSvc := transfers.NewTransferService(db, ledgerEngine, fraudClient, cache, auditSvc, notifSvc, authSvc)
 
 	// 6. Initialize Repositories & Domain Services
@@ -75,7 +75,7 @@ func main() {
 	beneficiaryHandler := beneficiaries.NewBeneficiaryHandler(db)
 	cardHandler := cards.NewCardHandler(db)
 	loanHandler := loans.NewLoanHandler(db)
-	depositHandler := deposits.NewDepositHandler(db, ledgerEngine)
+	depositHandler := deposits.NewDepositHandler(db)
 	investigationSvc := investigation.NewInvestigationService(db, ledgerEngine, auditSvc)
 	investigationHandler := investigation.NewInvestigationHandler(investigationSvc)
 

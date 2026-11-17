@@ -2,6 +2,8 @@ import os
 import sys
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi import Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # Add ml-service root to python path
@@ -26,13 +28,22 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+allowed_origins = [origin.strip() for origin in os.getenv("ML_ALLOWED_ORIGINS", "http://localhost:3002").split(",") if origin.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=allowed_origins,
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "X-Internal-Service-Token"],
 )
+
+@app.middleware("http")
+async def require_internal_service_token(request: Request, call_next):
+    expected = os.getenv("ML_SERVICE_TOKEN", "")
+    if expected and request.url.path.startswith("/api/v1/"):
+        if request.headers.get("X-Internal-Service-Token") != expected:
+            return JSONResponse(status_code=401, content={"detail": "Unauthorized service request"})
+    return await call_next(request)
 
 app.include_router(router)
 

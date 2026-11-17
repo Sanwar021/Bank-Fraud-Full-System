@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/bank-investigation/backend/internal/config"
 	"github.com/bank-investigation/backend/internal/middleware"
 	"github.com/bank-investigation/backend/internal/models"
 	"github.com/gin-gonic/gin"
@@ -38,6 +39,9 @@ func (h *TransferHandler) Initiate(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Transfer failed", "message": err.Error()})
 		return
+	}
+	if !config.DemoCodesEnabled() {
+		result.DemoOTP = ""
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -177,4 +181,3 @@ func (h *TransferHandler) Cancel(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Transfer cancelled successfully"})
 }
-

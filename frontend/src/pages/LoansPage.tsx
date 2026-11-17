@@ -143,7 +143,7 @@ export const LoansPage: React.FC = () => {
             {applicationSuccess && (
               <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>Credit application approved and disbursed to primary account!</span>
+                <span>Credit application submitted for underwriting review.</span>
               </div>
             )}
 

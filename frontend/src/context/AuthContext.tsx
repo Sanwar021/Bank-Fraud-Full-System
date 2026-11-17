@@ -19,19 +19,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (!token) {
-      setIsLoading(false);
-      return;
-    }
-
+    // Remove tokens left by pre-cookie versions; authentication now uses HttpOnly cookies.
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     authApi.getMe()
       .then((userData) => {
         setUser(userData);
       })
       .catch(() => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
         setUser(null);
       })
       .finally(() => {
@@ -43,10 +38,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const data = await authApi.login(email, pass);
-      const access = data.tokens?.access_token || data.token_pair?.access_token;
-      const refresh = data.tokens?.refresh_token || data.token_pair?.refresh_token;
-      if (access) localStorage.setItem('access_token', access);
-      if (refresh) localStorage.setItem('refresh_token', refresh);
       setUser(data.user);
       return data.user;
     } finally {

@@ -111,7 +111,7 @@ export const LoginPage: React.FC = () => {
                   <span>Customer</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 </div>
-                <div className="text-[10px] text-slate-400 truncate">John Doe ($20.7k)</div>
+                <div className="text-[10px] text-slate-400 truncate">Jannat Dewan (BDT demo)</div>
               </button>
 
               <button

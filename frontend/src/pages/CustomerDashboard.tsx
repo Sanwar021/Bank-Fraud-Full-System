@@ -15,10 +15,10 @@ const flow = [
 export const CustomerDashboard: React.FC = () => {
   const { user } = useAuth();
   const [showChartDetails, setShowChartDetails] = useState(false);
-  const [contacts, setContacts] = useState([['Angela Taylor','12788980890','AT'],['Dani Daniels','12788980890','DD'],['Natasha Malkova','12788980890','NM']]);
+  const [contacts, setContacts] = useState([['Ayesha Rahman','+880 1811-000102','AR'],['Tanvir Hasan','+880 1911-000103','TH'],['Nusrat Jahan','+880 1611-000104','NJ']]);
   const [selectedTheme, setSelectedTheme] = useState(0);
-  const { data: accounts = [] } = useQuery({ queryKey: ['accounts'], queryFn: bankingApi.getAccounts });
-  const { data: transfers = [] } = useQuery({ queryKey: ['transfers'], queryFn: bankingApi.getTransfers });
+  const { data: accounts = [] } = useQuery({ queryKey: ['accounts'], queryFn: bankingApi.getAccounts, refetchInterval: 15000 });
+  const { data: transfers = [] } = useQuery({ queryKey: ['transfers'], queryFn: bankingApi.getTransfers, refetchInterval: 15000 });
   const { data: cards = [] } = useQuery({ queryKey: ['cards'], queryFn: bankingApi.getCards });
   const balance = accounts.reduce((sum, account) => sum + Number(account.balance || 0), 0);
   const firstName = user?.customer?.first_name || 'Customer';
@@ -32,6 +32,7 @@ export const CustomerDashboard: React.FC = () => {
   ];
   const activeTheme = cardThemes[selectedTheme];
   const activeCard = cards[selectedTheme % Math.max(cards.length, 1)];
+  const ownedAccountIds = new Set(accounts.map((item:any) => item.id));
   const actions = [
     {label:'Transfer via card number', icon:CreditCard, to:'/transfer', color:'green'},
     {label:'Transfer to another bank', icon:WalletCards, to:'/transfer', color:'purple'},
@@ -39,13 +40,16 @@ export const CustomerDashboard: React.FC = () => {
     {label:'Transfer to another bank', icon:Landmark, to:'/transfer', color:'cyan'},
   ];
   const fallback = [
-    {name:'Water Bill', status:'Unsuccessfully', amount:'-$280', icon:'◆'},
-    {name:'Income: Salary Oct', status:'', amount:'+$1200', icon:'▣'},
-    {name:'Electric Bill', status:'Successfully', amount:'-$480', icon:'↗'},
-    {name:'Income: Jane transfers', status:'', amount:'+$500', icon:'▥'},
-    {name:'Internet Bill', status:'Successfully', amount:'-$100', icon:'▦'},
+    {name:'DESCO Electricity Bill', status:'Completed', amount:'-৳2,850', icon:'◆'},
+    {name:'Salary Credit • Dhaka Tech', status:'Completed', amount:'+৳95,000', icon:'▣'},
+    {name:'bKash Merchant Payment', status:'Completed', amount:'-৳1,480', icon:'↗'},
+    {name:'Nagad Wallet Transfer', status:'Completed', amount:'+৳5,000', icon:'▥'},
+    {name:'Internet Bill • Link3', status:'Completed', amount:'-৳1,200', icon:'▦'},
   ];
-  const recent = transfers.length ? transfers.slice(0,5).map((t:any) => ({name:t.description || 'Bank transfer',status:t.status || 'Processed',amount:`${Number(t.amount) >= 0 ? '-' : ''}$${Math.abs(Number(t.amount || 0)).toLocaleString()}`,icon:'↗'})) : fallback;
+  const recent = transfers.length ? transfers.slice(0,5).map((t:any) => {
+    const incoming = ownedAccountIds.has(t.destination_account_id) && !ownedAccountIds.has(t.source_account_id);
+    return {name:t.description || 'Bank transfer',status:t.status || 'Processed',amount:`${incoming ? '+' : '-'}৳${Math.abs(Number(t.amount || 0)).toLocaleString()}`,icon:incoming ? '↙' : '↗'};
+  }) : fallback;
 
   return (
     <div className="reference-dashboard">
@@ -54,8 +58,8 @@ export const CustomerDashboard: React.FC = () => {
         <div className="reference-action-grid">
           {actions.map(({label,icon:Icon,to,color}) => <Link to={to} key={label+color} className={`reference-action ${color}`}><Icon/><span>{label}</span><ArrowRight size={15}/></Link>)}
         </div>
-        <div className="reference-chart-head"><div><span>Balance</span><strong>${balance.toLocaleString('en-US',{maximumFractionDigits:0})}</strong><small>USD</small></div><button onClick={() => setShowChartDetails((value) => !value)} aria-label="Toggle chart details" aria-pressed={showChartDetails}><MoreHorizontal/></button></div>
-        {showChartDetails && <div className="reference-chart-summary"><span>Average monthly inflow <b>$4,360</b></span><span>Average monthly outflow <b>$1,480</b></span></div>}
+        <div className="reference-chart-head"><div><span>Balance</span><strong>৳{balance.toLocaleString('en-BD',{maximumFractionDigits:0})}</strong><small>BDT</small></div><button onClick={() => setShowChartDetails((value) => !value)} aria-label="Toggle chart details" aria-pressed={showChartDetails}><MoreHorizontal/></button></div>
+        {showChartDetails && <div className="reference-chart-summary"><span>Average monthly inflow <b>৳136,000</b></span><span>Average monthly outflow <b>৳48,500</b></span></div>}
         <div className="reference-chart">
           <ResponsiveContainer width="100%" height="100%"><BarChart data={flow} barGap={-10}><XAxis dataKey="m" axisLine={false} tickLine={false} tick={{fill:'#727b84',fontSize:11}}/><Tooltip cursor={{fill:'rgba(255,255,255,.03)'}} contentStyle={{background:'#151b21',border:'1px solid #343b42',borderRadius:10,color:'#fff'}}/><Bar dataKey="in" fill="#5f6870" radius={[3,3,0,0]} barSize={7}/><Bar dataKey="out" fill="#ff6819" radius={[3,3,0,0]} barSize={7}/></BarChart></ResponsiveContainer>
         </div>
