@@ -96,3 +96,4 @@ export const BankAsiaLogo: React.FC<BankAsiaLogoProps> = ({
     </div>
   );
 };
+

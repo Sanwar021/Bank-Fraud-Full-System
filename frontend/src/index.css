@@ -4,8 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-[#07091e] dark:text-slate-100 min-h-screen antialiased selection:bg-zen-500 selection:text-white;
+    @apply bg-slate-50 text-slate-900 dark:bg-[#07091e] dark:text-slate-100 min-h-screen antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background-color: #2061AE;
+    color: #ffffff;
   }
 }
 
