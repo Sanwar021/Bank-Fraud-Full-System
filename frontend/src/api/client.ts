@@ -2,17 +2,10 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: '/api/v1',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
-});
-
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
 });
 
 let isRefreshing = false;
@@ -47,7 +40,6 @@ api.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
-            originalRequest.headers.Authorization = `Bearer ${token}`;
             return api(originalRequest);
           })
           .catch((err) => Promise.reject(err));
@@ -56,29 +48,18 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = localStorage.getItem('refresh_token');
-      if (!refreshToken) {
-        isRefreshing = false;
-        localStorage.clear();
-        window.location.href = '/login';
-        return Promise.reject(error);
-      }
-
       try {
-        const resp = await axios.post('/api/v1/auth/refresh', { refresh_token: refreshToken });
+        const resp = await axios.post('/api/v1/auth/refresh', {}, { withCredentials: true });
         const tokenData = resp.data?.data || resp.data;
-        const { access_token, refresh_token: newRefresh } = tokenData;
-        localStorage.setItem('access_token', access_token);
-        if (newRefresh) {
-          localStorage.setItem('refresh_token', newRefresh);
-        }
-        api.defaults.headers.common.Authorization = `Bearer ${access_token}`;
-        processQueue(null, access_token);
+        processQueue(null, tokenData?.access_token || null);
         return api(originalRequest);
       } catch (refreshErr) {
         processQueue(refreshErr, null);
-        localStorage.clear();
-        window.location.href = '/login';
+        // Do not reload the login page when an anonymous session has no refresh
+        // cookie. Reloading /login here creates an endless auth bootstrap loop.
+        if (window.location.pathname !== '/login') {
+          window.location.replace('/login');
+        }
         return Promise.reject(refreshErr);
       } finally {
         isRefreshing = false;
