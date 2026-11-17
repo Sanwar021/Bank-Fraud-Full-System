@@ -111,7 +111,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                 <td className="py-3.5 px-4">
                   <span className="inline-flex items-center text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300">
                     {getRailIcon(tx.transfer_type)}
-                    {tx.transfer_type === 'INTERNAL' ? 'Bank Asia' : tx.transfer_type === 'INTERBANK' ? 'NPSB Instant' : 'Bill Pay'}
+                    {tx.transfer_type === 'INTERNAL' ? 'Mrraw Bank' : tx.transfer_type === 'INTERBANK' ? 'NPSB Instant' : 'Bill Pay'}
                   </span>
                 </td>
                 <td className="py-3.5 px-4">

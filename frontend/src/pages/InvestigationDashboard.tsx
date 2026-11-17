@@ -53,7 +53,7 @@ export const InvestigationDashboard: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
             <span className="text-xs font-mono font-bold tracking-wider text-zen-600 dark:text-cyan-400 uppercase">
-              Bank Asia ZEN AI Defense & Investigation Center
+              Mrraw Bank AI Defense & Investigation Center
             </span>
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1">

@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_NAME:-bank_investigation}
     ports:
-      - "${POSTGRES_PORT:-5434}:5432"
+      - "${POSTGRES_PORT:-5437}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -22,7 +22,7 @@ services:
     container_name: bank_redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "${REDIS_HOST_PORT:-6380}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -55,7 +55,7 @@ services:
     container_name: bank_api
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "${API_PORT:-8083}:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -78,7 +78,7 @@ services:
       ML_SERVICE_URL: http://ml:8000
       ML_INFERENCE_TIMEOUT_MS: 150
       JWT_SECRET: ${JWT_SECRET:-super-secure-production-grade-hmac-sha256-jwt-secret-key-32-chars}
-      ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:5173"
+      ALLOWED_ORIGINS: "http://localhost:${WEB_PORT:-3002},http://localhost:5173"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
       interval: 10s
@@ -92,7 +92,7 @@ services:
     container_name: bank_web
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "${WEB_PORT:-3002}:80"
     depends_on:
       - api
 

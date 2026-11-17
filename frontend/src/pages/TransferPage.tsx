@@ -8,7 +8,7 @@ export const TransferPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
-            Bank Asia ZEN Instant Transfer
+            Mrraw Bank Instant Transfer
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
         </div>
@@ -28,7 +28,7 @@ export const TransferPage: React.FC = () => {
       <div className="bg-white dark:bg-[#090B28] p-5 sm:p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs">
         <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mb-3.5 flex items-center gap-2">
           <GitCommit className="w-4 h-4 text-zen-500" />
-          <span>Bank Asia ZEN Transaction State Machine</span>
+          <span>Mrraw Bank Transaction State Machine</span>
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c152d] border border-slate-200/80 dark:border-slate-800">

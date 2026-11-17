@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { SimulationNotice } from './components/layout/SimulationNotice';
@@ -6,21 +6,28 @@ import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 
 // Pages
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { CustomerDashboard } from './pages/CustomerDashboard';
-import { AccountsPage } from './pages/AccountsPage';
-import { TransferPage } from './pages/TransferPage';
-import { CardsPage } from './pages/CardsPage';
-import { LoansPage } from './pages/LoansPage';
-import { DepositsPage } from './pages/DepositsPage';
-import { InvestigationDashboard } from './pages/InvestigationDashboard';
-import { AlertDetailsPage } from './pages/AlertDetailsPage';
-import { AuditLogsPage } from './pages/AuditLogsPage';
+const LoginPage = lazy(() => import('./pages/LoginPage').then((module) => ({ default: module.LoginPage })));
+const RegisterPage = lazy(() => import('./pages/RegisterPage').then((module) => ({ default: module.RegisterPage })));
+const CustomerDashboard = lazy(() => import('./pages/CustomerDashboard').then((module) => ({ default: module.CustomerDashboard })));
+const AccountsPage = lazy(() => import('./pages/AccountsPage').then((module) => ({ default: module.AccountsPage })));
+const TransferPage = lazy(() => import('./pages/TransferPage').then((module) => ({ default: module.TransferPage })));
+const CardsPage = lazy(() => import('./pages/CardsPage').then((module) => ({ default: module.CardsPage })));
+const LoansPage = lazy(() => import('./pages/LoansPage').then((module) => ({ default: module.LoansPage })));
+const DepositsPage = lazy(() => import('./pages/DepositsPage').then((module) => ({ default: module.DepositsPage })));
+const InvestigationDashboard = lazy(() => import('./pages/InvestigationDashboard').then((module) => ({ default: module.InvestigationDashboard })));
+const AlertDetailsPage = lazy(() => import('./pages/AlertDetailsPage').then((module) => ({ default: module.AlertDetailsPage })));
+const AuditLogsPage = lazy(() => import('./pages/AuditLogsPage').then((module) => ({ default: module.AuditLogsPage })));
+
+const PageLoader: React.FC = () => (
+  <div className="min-h-[45vh] flex items-center justify-center" role="status" aria-label="Loading page">
+    <div className="w-9 h-9 border-[3px] border-zen-200 border-t-zen-600 rounded-full animate-spin" />
+  </div>
+);
 
 // Protected Route Wrapper
 const ProtectedLayout: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -35,13 +42,15 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950">
-      <SimulationNotice />
-      <Navbar />
-      <div className="flex flex-1 max-w-7xl w-full mx-auto">
-        <Sidebar />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
-          <Routes>
+    <div className="reference-page app-shell">
+      <div className="reference-app-frame">
+        <div className="reference-window-dots" aria-hidden="true"><i/><i/><i/></div>
+        <Sidebar mobileOpen={mobileNavOpen} onMobileClose={() => setMobileNavOpen(false)} />
+        <section className="reference-content-shell">
+          <SimulationNotice />
+          <Navbar onMenuClick={() => setMobileNavOpen(true)} />
+          <main className="reference-main">
+          <Suspense fallback={<PageLoader />}><Routes>
             {/* Customer Routes */}
             <Route path="/" element={<CustomerDashboard />} />
             <Route path="/accounts" element={<AccountsPage />} />
@@ -59,8 +68,9 @@ const ProtectedLayout: React.FC = () => {
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
+          </Routes></Suspense>
+          </main>
+        </section>
       </div>
     </div>
   );
@@ -69,11 +79,13 @@ const ProtectedLayout: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/*" element={<ProtectedLayout />} />
       </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };

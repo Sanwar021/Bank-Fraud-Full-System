@@ -15,12 +15,12 @@ export default {
           200: '#bce0fd',
           300: '#81c5fc',
           400: '#3da5f8',
-          500: '#2061AE', // Official Bank Asia Corporate Primary Blue
-          600: '#184e91',
-          700: '#143e74',
-          800: '#10315c',
-          900: '#0c2343',
-          950: '#07152b',
+          500: '#0f766e',
+          600: '#0b625b',
+          700: '#084c47',
+          800: '#073b34',
+          900: '#052f2a',
+          950: '#03221e',
         },
         // Bank Asia ZEN Midnight Dark / Navy Palette
         zenNavy: {
@@ -56,11 +56,12 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
       },
       boxShadow: {
-        'zen': '0 10px 25px -5px rgba(32, 97, 174, 0.2), 0 8px 10px -6px rgba(32, 97, 174, 0.1)',
-        'zen-lg': '0 20px 35px -10px rgba(32, 97, 174, 0.35)',
-        'zen-dark': '0 10px 30px -5px rgba(9, 11, 40, 0.8)',
+        'zen': '0 14px 30px -12px rgba(5, 47, 42, 0.34)',
+        'zen-lg': '0 24px 50px -18px rgba(5, 47, 42, 0.42)',
+        'zen-dark': '0 24px 60px -22px rgba(1, 18, 16, 0.72)',
       }
     },
   },

@@ -67,7 +67,7 @@ export interface Card {
   card_number_masked: string;
   card_type: string;
   spending_limit: string;
-  status: 'ACTIVE' | 'FROZEN' | 'BLOCKED';
+  status: 'ACTIVE' | 'BLOCKED';
   expiry_date: string;
   account?: Account;
 }
@@ -181,7 +181,7 @@ export const bankingApi = {
 
   verifyTransferOTP: async (txId: string, code: string): Promise<Transaction> => {
     const res = await api.post(`/transfers/${txId}/otp`, { code });
-    return res.data;
+    return res.data?.data || res.data;
   },
 
   cancelTransfer: async (txId: string) => {
@@ -211,13 +211,13 @@ export const bankingApi = {
     return res.data?.data || res.data || [];
   },
 
-  updateCardStatus: async (id: string, status: 'ACTIVE' | 'FROZEN') => {
+  updateCardStatus: async (id: string, status: 'ACTIVE' | 'BLOCKED') => {
     const res = await api.patch(`/cards/${id}/status`, { status });
     return res.data?.data || res.data;
   },
 
   updateCardLimit: async (id: string, limit: number) => {
-    const res = await api.patch(`/cards/${id}/limit`, { spending_limit: limit });
+    const res = await api.patch(`/cards/${id}/limit`, { limit });
     return res.data?.data || res.data;
   },
 

@@ -42,7 +42,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onSelect, isS
           : 'bg-gradient-to-br from-[#1e293b] via-[#0f172a] to-[#020617] text-white border border-amber-500/20'
       } ${onSelect ? 'cursor-pointer' : ''}`}
     >
-      {/* Background Bank Asia Decorative Arc Watermark */}
+      {/* Background Mrraw Bank Decorative Arc Watermark */}
       <svg
         className="absolute -right-8 -bottom-10 w-48 h-48 opacity-10 pointer-events-none text-white"
         viewBox="0 0 100 100"
@@ -61,7 +61,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onSelect, isS
           <div>
             <div className="flex items-center gap-2">
               <span className="font-black text-xs tracking-wider uppercase text-white/95">
-                Bank Asia ZEN
+                Mrraw Bank
               </span>
               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-cyan-500/30 text-cyan-200 border border-cyan-400/30">
                 {account.account_type}

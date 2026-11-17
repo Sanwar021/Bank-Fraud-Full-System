@@ -43,13 +43,13 @@ export const LoansPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
-            Bank Asia ZEN Credit
+            Mrraw Bank Credit
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
         </div>
         <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 mt-0.5">
           <Banknote className="w-6 h-6 text-zen-500" />
-          <span>ZEN Personal & SME Loan Simulator</span>
+          <span>MRRAW Personal & SME Loan Simulator</span>
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Calculate monthly amortized EMI payments and submit instant pre-qualified loan requests.
@@ -62,7 +62,7 @@ export const LoansPage: React.FC = () => {
           <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
             <Calculator className="w-4 h-4 text-zen-500" />
             <h3 className="text-sm font-black text-slate-900 dark:text-white">
-              Bank Asia Smart EMI Amortization Planner
+              Mrraw Bank Smart EMI Amortization Planner
             </h3>
           </div>
 
@@ -152,7 +152,7 @@ export const LoansPage: React.FC = () => {
               isLoading={applyMutation.isPending}
               className="w-full py-3 shadow-zen font-black"
             >
-              <span>Apply for Bank Asia ZEN Smart Credit</span>
+              <span>Apply for Mrraw Bank Smart Credit</span>
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
           </div>
@@ -164,9 +164,9 @@ export const LoansPage: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-cyan-300 bg-white/10 px-2.5 py-0.5 rounded-full">
               Pre-Approved Facility
             </span>
-            <h4 className="text-lg font-black tracking-tight">ZEN Express Disbursal</h4>
+            <h4 className="text-lg font-black tracking-tight">MRRAW Express Disbursal</h4>
             <p className="text-xs text-white/80 leading-relaxed">
-              Approved funds are directly credited to your Bank Asia ZEN current or savings account with zero hidden processing charges.
+              Approved funds are directly credited to your Mrraw Bank current or savings account with zero hidden processing charges.
             </p>
           </div>
         </div>

@@ -12,7 +12,7 @@ export const Card: React.FC<CardProps> = ({ children, className, onClick }) => {
     <div
       onClick={onClick}
       className={clsx(
-        'bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl shadow-xs p-5 transition-colors',
+        'bg-white/90 dark:bg-[#082b27]/85 backdrop-blur-xl border border-emerald-950/10 dark:border-white/10 rounded-2xl shadow-zen p-5 transition-all duration-200',
         onClick && 'cursor-pointer hover:border-emerald-500/50 dark:hover:border-emerald-500/50',
         className
       )}

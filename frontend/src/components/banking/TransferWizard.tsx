@@ -40,7 +40,7 @@ export const TransferWizard: React.FC = () => {
   const [destAccountId, setDestAccountId] = useState<string>('');
   const [destAccountNumber, setDestAccountNumber] = useState<string>('');
   const [amount, setAmount] = useState<string>('50.00');
-  const [description, setDescription] = useState<string>('Bank Asia ZEN transfer payment');
+  const [description, setDescription] = useState<string>('Mrraw Bank transfer payment');
   const [channel, setChannel] = useState<string>('WEB');
 
   // Multi-step flow state
@@ -144,7 +144,7 @@ export const TransferWizard: React.FC = () => {
       <div className="mb-6 p-3.5 bg-gradient-to-r from-zen-50 to-slate-50 dark:from-[#0f1937] dark:to-[#090B28] rounded-2xl border border-zen-200/60 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-cyan-300">
           <Sparkles className="w-4 h-4 text-zen-500" />
-          <span>Simulate Bank Asia ZEN AI Scenarios:</span>
+          <span>Simulate Mrraw Bank AI Scenarios:</span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -228,7 +228,7 @@ export const TransferWizard: React.FC = () => {
             >
               {accounts.map((acct) => (
                 <option key={acct.id} value={acct.id}>
-                  Bank Asia ZEN {acct.account_type} - {acct.account_number} (Bal: ${parseFloat(acct.balance).toLocaleString()})
+                  Mrraw Bank {acct.account_type} - {acct.account_number} (Bal: ${parseFloat(acct.balance).toLocaleString()})
                 </option>
               ))}
             </select>
@@ -249,7 +249,7 @@ export const TransferWizard: React.FC = () => {
                 }`}
               >
                 <Building2 className="w-5 h-5 mb-1.5 text-zen-500" />
-                <div className="font-extrabold text-xs">Within Bank Asia</div>
+                <div className="font-extrabold text-xs">Within Mrraw Bank</div>
                 <div className="text-[10px] text-slate-400">Instant • 0 Fee</div>
               </button>
 
@@ -423,6 +423,11 @@ export const TransferWizard: React.FC = () => {
               <Zap className="w-4 h-4 ml-1.5" />
             </Button>
           </div>
+          {initiateMutation.isError && (
+            <div role="alert" className="rounded-xl border border-rose-500/40 bg-rose-950/30 px-4 py-3 text-xs text-rose-200">
+              {(initiateMutation.error as any)?.response?.data?.message || (initiateMutation.error as any)?.response?.data?.error || (initiateMutation.error as Error)?.message || 'Transfer could not be submitted. Please review the details and try again.'}
+            </div>
+          )}
         </div>
       )}
 
@@ -436,7 +441,7 @@ export const TransferWizard: React.FC = () => {
                 <CheckCircle2 className="w-9 h-9" />
               </div>
               <h3 className="mt-4 text-xl font-black text-slate-900 dark:text-white">
-                Bank Asia ZEN Transfer Completed!
+                Mrraw Bank Transfer Completed!
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400 max-w-md mx-auto mt-1">
                 Risk score: <strong>{transferResult.fraud_score?.ensemble_score?.toFixed(1) || '12.4'}</strong> (LOW RISK).
@@ -458,7 +463,7 @@ export const TransferWizard: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-base font-black text-slate-900 dark:text-white">
-                      Bank Asia ZEN Smart OTP Step-Up
+                      Mrraw Bank Smart OTP Step-Up
                     </h3>
                     <Badge variant="warning">Medium Risk ({transferResult.fraud_score?.ensemble_score?.toFixed(1)})</Badge>
                   </div>
@@ -508,7 +513,7 @@ export const TransferWizard: React.FC = () => {
                 <AlertOctagon className="w-9 h-9" />
               </div>
               <h3 className="mt-4 text-xl font-black text-rose-900 dark:text-rose-100">
-                Transaction Blocked by Bank Asia ZEN AI Defense
+                Transaction Blocked by Mrraw Bank AI Defense
               </h3>
               <p className="text-xs text-rose-700 dark:text-rose-300 max-w-md mx-auto mt-1">
                 Risk score: <strong>{transferResult.fraud_score?.ensemble_score?.toFixed(1)}</strong> (Critical threshold exceeded).

@@ -33,9 +33,9 @@ export const BankAsiaLogo: React.FC<BankAsiaLogoProps> = ({
 
   return (
     <div className="flex items-center gap-2.5 select-none">
-      {/* Bank Asia Emblem Icon */}
+      {/* Mrraw Bank Emblem Icon */}
       <div
-        className={`${iconSizes[size]} rounded-2xl bg-gradient-to-br from-[#2061AE] via-[#164e91] to-[#090B28] p-1.5 flex items-center justify-center shadow-md shadow-zen-500/25 relative overflow-hidden shrink-0 group`}
+        className={`${iconSizes[size]} rounded-2xl bg-gradient-to-br from-[#d6a84b] via-[#0f766e] to-[#03221e] p-1.5 flex items-center justify-center shadow-md shadow-zen-950/25 relative overflow-hidden shrink-0 group`}
       >
         {/* Modern Vector Geometric Emblem */}
         <svg
@@ -44,7 +44,7 @@ export const BankAsiaLogo: React.FC<BankAsiaLogoProps> = ({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Bank Asia Stylized Geometric Waves */}
+          {/* Mrraw Bank Stylized Geometric Waves */}
           <path
             d="M8 28C8 18 16 10 26 10C29 10 32 11 34 13"
             stroke="white"
@@ -53,19 +53,19 @@ export const BankAsiaLogo: React.FC<BankAsiaLogoProps> = ({
           />
           <path
             d="M6 34C6 22 15 14 27 14"
-            stroke="#60A5FA"
+            stroke="#F6D891"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeOpacity="0.8"
           />
           <path
             d="M14 34C14 26 20 20 28 20"
-            stroke="#93C5FD"
+            stroke="#FFF1C7"
             strokeWidth="2"
             strokeLinecap="round"
             strokeOpacity="0.6"
           />
-          {/* Signature Bank Asia Ruby Red Accent Dot */}
+          {/* Signature Mrraw Bank Ruby Red Accent Dot */}
           <circle cx="28" cy="11" r="4" fill="#ED1C24" className="filter drop-shadow" />
         </svg>
 
@@ -77,19 +77,19 @@ export const BankAsiaLogo: React.FC<BankAsiaLogoProps> = ({
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 leading-tight">
           <span className={`font-black tracking-tight text-slate-900 dark:text-white ${textSizes[size]}`}>
-            Bank Asia
+            Mrraw
           </span>
           <span
-            className={`font-extrabold uppercase bg-gradient-to-r from-zen-500 to-cyan-500 text-white rounded-full tracking-wider shadow-xs ${badgeSizes[size]}`}
+            className={`font-extrabold uppercase bg-gradient-to-r from-[#b9872b] to-[#d6a84b] text-[#03221e] rounded-full tracking-wider shadow-xs ${badgeSizes[size]}`}
           >
-            ZEN
+            BANK
           </span>
         </div>
         {showSubtitle && (
           <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wide flex items-center gap-1">
-            <span>Smart Digital Banking</span>
+            <span>Private digital banking</span>
             <span className="text-slate-300 dark:text-slate-600">•</span>
-            <span className="text-zen-600 dark:text-cyan-400 font-semibold">AI Shield</span>
+            <span className="text-zen-600 dark:text-emerald-300 font-semibold">Always protected</span>
           </span>
         )}
       </div>

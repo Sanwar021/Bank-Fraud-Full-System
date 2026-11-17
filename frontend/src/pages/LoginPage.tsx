@@ -70,10 +70,10 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#090B28] via-[#0c1e40] to-[#07091e] relative overflow-hidden">
+    <div className="auth-shell min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#03221e] via-[#073b34] to-[#021512] relative overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-zen-500/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-amber-300/10 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Main Login Container */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
@@ -85,7 +85,7 @@ export const LoginPage: React.FC = () => {
         <div className="bg-white/95 dark:bg-[#0c152d]/95 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 shadow-zen-dark rounded-3xl p-6 sm:p-8">
           <div className="text-center mb-6">
             <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
-              Sign In to ZEN Smart Banking
+              Sign In to MRRAW Smart Banking
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Protected by AI Tri-Model Shield & Double-Entry Ledger
@@ -161,7 +161,7 @@ export const LoginPage: React.FC = () => {
               className="w-full py-2.5 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/70 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center gap-2 transition-all border border-slate-200 dark:border-slate-700"
             >
               <Fingerprint className={`w-4 h-4 text-zen-500 ${biometricSimulated ? 'animate-pulse text-emerald-500' : ''}`} />
-              <span>{biometricSimulated ? 'Biometric Verified! Signing in...' : 'Sign In with Bank Asia Smart Biometrics'}</span>
+              <span>{biometricSimulated ? 'Biometric Verified! Signing in...' : 'Sign In with Mrraw Bank Smart Biometrics'}</span>
             </button>
           </div>
 
@@ -232,14 +232,14 @@ export const LoginPage: React.FC = () => {
               className="w-full py-3 shadow-zen font-extrabold"
               isLoading={loading}
             >
-              <span>Sign In to Bank Asia ZEN</span>
+              <span>Sign In to Mrraw Bank</span>
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
           </form>
 
           {/* Footer Register Link */}
           <div className="mt-5 text-center text-xs text-slate-500 dark:text-slate-400">
-            <span>New to Bank Asia ZEN? </span>
+            <span>New to Mrraw Bank? </span>
             <Link to="/register" className="text-zen-600 dark:text-cyan-400 font-bold hover:underline">
               Open a Smart Account
             </Link>

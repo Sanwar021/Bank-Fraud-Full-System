@@ -49,16 +49,16 @@ export const DepositsPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
-            Bank Asia ZEN Wealth
+            Mrraw Bank Wealth
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
         </div>
         <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 mt-0.5">
           <PiggyBank className="w-6 h-6 text-zen-500" />
-          <span>ZEN FDR & DPS Deposit Schemes</span>
+          <span>MRRAW FDR & DPS Deposit Schemes</span>
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Lock capital with Bank Asia guaranteed high returns (up to 8.5% - 9.0% APY). Debited from savings and posted atomically.
+          Lock capital with Mrraw Bank guaranteed high returns (up to 8.5% - 9.0% APY). Debited from savings and posted atomically.
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export const DepositsPage: React.FC = () => {
         <div className="lg:col-span-2 bg-white dark:bg-[#090B28] p-6 sm:p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 space-y-5 shadow-xs">
           <h3 className="text-sm font-black text-slate-900 dark:text-white pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-zen-500" />
-            <span>Open a Bank Asia ZEN Term Deposit (FDR)</span>
+            <span>Open a Mrraw Bank Term Deposit (FDR)</span>
           </h3>
 
           <div className="space-y-4 text-xs">
@@ -82,7 +82,7 @@ export const DepositsPage: React.FC = () => {
               >
                 {accounts.map((a) => (
                   <option key={a.id} value={a.id}>
-                    Bank Asia {a.account_type} - {a.account_number} (Bal: ${parseFloat(a.balance).toLocaleString()})
+                    Mrraw Bank {a.account_type} - {a.account_number} (Bal: ${parseFloat(a.balance).toLocaleString()})
                   </option>
                 ))}
               </select>
@@ -170,11 +170,11 @@ export const DepositsPage: React.FC = () => {
         <div className="space-y-4">
           <div className="zen-gradient-card p-6 rounded-3xl text-white shadow-zen space-y-3">
             <span className="text-[10px] font-black uppercase tracking-widest text-cyan-300 bg-white/10 px-2.5 py-0.5 rounded-full">
-              Bank Asia Guaranteed
+              Mrraw Bank Guaranteed
             </span>
-            <h4 className="text-lg font-black tracking-tight">ZEN Smart Wealth Growth</h4>
+            <h4 className="text-lg font-black tracking-tight">MRRAW Smart Wealth Growth</h4>
             <p className="text-xs text-white/80 leading-relaxed">
-              Enjoy tax-compliant, guaranteed high yields backed by Bank Asia’s digital security framework.
+              Enjoy tax-compliant, guaranteed high yields backed by Mrraw Bank’s digital security framework.
             </p>
             <div className="pt-2 flex items-center gap-2 text-xs text-cyan-300 font-mono">
               <ShieldCheck className="w-4 h-4" />

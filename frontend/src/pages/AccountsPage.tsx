@@ -52,7 +52,7 @@ export const AccountsPage: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
-              Bank Asia ZEN Accounts
+              Mrraw Bank Accounts
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>

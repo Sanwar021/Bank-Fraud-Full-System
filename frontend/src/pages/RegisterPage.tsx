@@ -15,7 +15,7 @@ export const RegisterPage: React.FC = () => {
     phone: '+88017',
     national_id: 'NID-BD-902',
     monthly_income: 6500,
-    address: 'Bank Asia Tower, Rangs Fortune Square, Dhanmondi, Dhaka',
+    address: 'Mrraw Bank Tower, Rangs Fortune Square, Dhanmondi, Dhaka',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#090B28] via-[#0c1e40] to-[#07091e] relative overflow-hidden">
+    <div className="auth-shell min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#03221e] via-[#073b34] to-[#021512] relative overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-zen-500/15 rounded-full blur-[140px] pointer-events-none" />
 
@@ -49,7 +49,7 @@ export const RegisterPage: React.FC = () => {
         <div className="bg-white/95 dark:bg-[#0c152d]/95 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 shadow-zen-dark rounded-3xl p-6 sm:p-8">
           <div className="text-center mb-6">
             <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
-              Open a Bank Asia ZEN Account
+              Open a Mrraw Bank Account
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Automated e-KYC Verification & Instant Dual-Account Setup

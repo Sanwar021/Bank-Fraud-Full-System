@@ -17,7 +17,7 @@ export const CardsPage: React.FC = () => {
   const [savedLimitNotice, setSavedLimitNotice] = useState<{ [id: string]: boolean }>({});
 
   const toggleStatusMutation = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: 'ACTIVE' | 'FROZEN' }) =>
+    mutationFn: ({ id, status }: { id: string; status: 'ACTIVE' | 'BLOCKED' }) =>
       bankingApi.updateCardStatus(id, status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cards'] });
@@ -41,13 +41,13 @@ export const CardsPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono font-bold text-zen-600 dark:text-cyan-400 uppercase tracking-wider">
-            Bank Asia ZEN Card Center
+            Mrraw Bank Card Center
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
         </div>
         <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 mt-0.5">
           <CreditCard className="w-6 h-6 text-zen-500" />
-          <span>ZEN Platinum Cards & Spending Controls</span>
+          <span>MRRAW Platinum Cards & Spending Controls</span>
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Manage your virtual & physical debit cards. Instantly freeze lost cards or adjust daily POS/ATM limits.
@@ -56,7 +56,7 @@ export const CardsPage: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {cards.map((card: Card) => {
-          const isFrozen = card.status === 'FROZEN';
+          const isFrozen = card.status === 'BLOCKED';
           const currentLimit = selectedLimit[card.id] ?? parseFloat(card.spending_limit);
 
           return (
@@ -64,7 +64,7 @@ export const CardsPage: React.FC = () => {
               key={card.id}
               className="bg-white dark:bg-[#090B28] rounded-3xl border border-slate-200/80 dark:border-slate-800 p-6 space-y-5 shadow-xs"
             >
-              {/* Virtual Plastic Card Art with Bank Asia ZEN Aesthetic */}
+              {/* Virtual Plastic Card Art with Mrraw Bank Aesthetic */}
               <div
                 className={`relative h-48 rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl transition-all overflow-hidden ${
                   isFrozen
@@ -83,9 +83,9 @@ export const CardsPage: React.FC = () => {
 
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-black text-xs tracking-wider">Bank Asia</span>
+                    <span className="font-black text-xs tracking-wider">Mrraw Bank</span>
                     <span className="bg-white/20 text-[10px] font-black px-1.5 py-0.2 rounded-full uppercase">
-                      ZEN
+                      MRRAW
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -133,7 +133,7 @@ export const CardsPage: React.FC = () => {
                     onClick={() =>
                       toggleStatusMutation.mutate({
                         id: card.id,
-                        status: isFrozen ? 'ACTIVE' : 'FROZEN',
+                        status: isFrozen ? 'ACTIVE' : 'BLOCKED',
                       })
                     }
                     isLoading={toggleStatusMutation.isPending}
