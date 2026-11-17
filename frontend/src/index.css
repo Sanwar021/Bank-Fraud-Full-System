@@ -149,8 +149,9 @@
 .reference-page.app-shell::before,.reference-page.app-shell::after{content:none!important;display:none!important;background:none!important}
 .reference-page{isolation:isolate;background-repeat:repeat,no-repeat;background-attachment:fixed;background-blend-mode:screen,normal}
 .reference-window-dots { position:absolute; z-index:20; top:18px; left:27px; display:flex; gap:5px; }
-.reference-window-dots i { width:10px; height:10px; border-radius:50%; background:#ff675d; box-shadow:0 0 0 2px #d44c42 inset; }
-.reference-window-dots i:nth-child(2){background:#ffbd45;box-shadow:0 0 0 2px #dc9824 inset}.reference-window-dots i:nth-child(3){background:#31c94d;box-shadow:0 0 0 2px #20a93a inset}
+.reference-window-dots i { width:10px; height:10px; border-radius:50%; background:#ff675d; box-shadow:0 0 0 2px #d44c42 inset; animation:window-light-sequence 1.8s ease-in-out infinite; }
+.reference-window-dots i:nth-child(2){background:#ffbd45;box-shadow:0 0 0 2px #dc9824 inset;animation-delay:.6s}.reference-window-dots i:nth-child(3){background:#31c94d;box-shadow:0 0 0 2px #20a93a inset;animation-delay:1.2s}
+@keyframes window-light-sequence{0%,30%,100%{opacity:.3;filter:brightness(.65);transform:scale(.88)}10%,20%{opacity:1;filter:brightness(1.35);transform:scale(1.12)}}
 .reference-app-frame { position:relative; width:min(1440px,90vw); height:87vh; min-height:680px; margin:auto; display:flex; overflow:hidden; border:1px solid #343a3e; border-radius:40px; background:#1d2329; box-shadow:0 32px 90px rgba(0,0,0,.58); }
 .reference-sidebar { width:240px; flex:0 0 240px; padding:38px 30px 30px; flex-direction:column; justify-content:space-between; background:#1b2127; border-right:1px solid #2a3036; color:#9ba3ab; }
 .reference-brand { display:flex; align-items:center; gap:9px; color:#f4f6f8; font-size:14px; font-weight:700; margin-bottom:72px; }.reference-brand-mark{color:#ff7a23;font-size:18px}.reference-menu-label{color:#f1f3f4;font-size:12px;font-weight:700;margin:0 0 16px}
